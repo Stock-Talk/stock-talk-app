@@ -17,15 +17,3 @@ db.once("open", () => {
     // console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
-
-// app.listen(PORT, () => {
-//   console.log("RUNNING 🌏");
-// });
-
-/**
- * nodemailer -> email node package, so when users send their data, POST request storing what the user sent to you and sends the context of the form to you via email
- * using transporter (a part of nodemailer)
- * whenever people visit you, post saves name -email - message
- * we have one or 2 post routes
- * maybe a get route to post whomever visited on a page
- */
