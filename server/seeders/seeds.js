@@ -51,7 +51,7 @@ db.once('open', async () => {
       { _id: userId },
       { $push: { posts: createdPost._id } }
     );
-
+      console.log(createdPost);
     createdPosts.push(createdPost);
   }
 
