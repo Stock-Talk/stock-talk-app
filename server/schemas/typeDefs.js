@@ -46,6 +46,9 @@ type Post {
   type Mutation {
     login(email: String!, password: String!): Auth
     addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!): Auth
+    addPost(postText: String!): Post
+    addComment(postId: ID!, commentBody: String!): Post
+    addFriend(friendId: ID!): User
   }
 `;
 

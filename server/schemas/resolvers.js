@@ -6,16 +6,16 @@ const resolvers = {
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
-              const userData = await User.findOne({ _id: context.user._id })
-                .select('-__v -password')
-                .populate('posts')
-                .populate('friends');
-          
-              return userData;
+                const userData = await User.findOne({ _id: context.user._id })
+                    .select('-__v -password')
+                    .populate('posts')
+                    .populate('friends');
+
+                return userData;
             }
-          
+
             throw new AuthenticationError('Not logged in');
-          },
+        },
         posts: async (parent, { username }) => {
             const params = username ? { username } : {};
             return Post.find(params).sort({ createdAt: -1 });
@@ -59,6 +59,21 @@ const resolvers = {
 
             const token = signToken(user);
             return { token, user };
+        },
+        addPost: async (parent, args, context) => {
+            if (context.user) {
+                const post = await Post.create({ ...args, username: context.user.username });
+
+                await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { posts: post._id } },
+                    { new: true }
+                );
+
+                return post;
+            }
+
+            throw new AuthenticationError('You need to be logged in!');
         }
 
     }
