@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
 
@@ -60,3 +61,15 @@ userSchema.methods.isCorrectPassword = async function (password) {
 const User = model("User", userSchema);
 
 module.exports = User;
+=======
+const { model, Schema } = require('mongoose');
+
+const userSchema = new Schema({
+  username: String,
+  password: String,
+  email: String,
+  createdAt: String,
+});
+
+module.exports = model('User', userSchema);
+>>>>>>> 4fe5f60e6681592db0b348c38f13d1e5ef8c5e15
