@@ -8,6 +8,7 @@ body {
   background-color: #b6b6b7;
   color: var(--lightred);
   margin: 0;
+  font-size: 1.2em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -15,8 +16,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.App {
+.page-title {
+  display: block !important;
   text-align: center;
+  font-size: 1.2em;
+  margin-top: 1.3em;
 }
 
 /* .App-logo {
@@ -29,7 +33,7 @@ body {
     animation: App-logo-spin infinite 20s linear;
   }
 } */
-
+/* 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -52,4 +56,4 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
+} */

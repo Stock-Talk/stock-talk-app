@@ -5,10 +5,13 @@ const checkAuth = require('../../utils/check-auth');
 
 module.exports = {
   Mutation: {
+    // CREATE comment
     createComment: async (_, { postId, body }, context) => {
+      // context... is user logged in
       const { username } = checkAuth(context);
+      // once logged in
       if (body.trim() === '') {
-        throw new UserInputError('Empty comment', {
+        throw new UserInputError('Comment is empty', {
           errors: {
             body: 'Comment body must not empty',
           },
@@ -27,6 +30,7 @@ module.exports = {
         return post;
       } else throw new UserInputError('Post not found');
     },
+    // DELETE Comment
     async deleteComment(_, { postId, commentId }, context) {
       const { username } = checkAuth(context);
 
@@ -40,7 +44,7 @@ module.exports = {
           await post.save();
           return post;
         } else {
-          throw new AuthenticationError('Action not allowed');
+          throw new AuthenticationError('Action denied');
         }
       } else {
         throw new UserInputError('Post not found');
