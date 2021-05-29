@@ -1,8 +1,59 @@
+// load config data from .env file
 require("dotenv").config();
 const { User, Post } = require('../models');
 const { AuthenticationError, ApolloError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const cloudinary = require('cloudinary').v2;
+const AWS = require('aws-sdk');
+const { avatarUploader } = require('../uploaders');
+
+
+// update AWS config env data
+// AWS.config.update({
+//     accessKeyId: process.env.AWS_ACCESS_ID,
+//     secretAccessKey: process.env.AWS_SECRET_KEY,
+//     region: process.env.AWS_REGION,
+// });
+
+// const s3 = new AWS.S3({ region: process.env.AWS_REGION });
+
+// my default params for s3 upload
+// I have a max upload size of 256k kb
+// const s3DefaultParams = {
+//     ACL: 'public-read',
+//     Bucket: process.env.S3_BUCKET_NAME,
+//     Conditions: [
+//         ['content-length-range', 0, 256000], // 256k kb
+//         { acl: 'public-read' },
+//     ],
+// };
+
+// the actual upload happens here
+// const handleFileUpload = async file => {
+//     const { createReadStream, filename } = await file;
+
+//     const key = uuidv4();
+
+//     return new Promise((resolve, reject) => {
+//         s3.upload(
+//             {
+//                 ...s3DefaultParams,
+//                 Body: createReadStream(),
+//                 Key: `${key}/${filename}`,
+//             },
+//             (err, data) => {
+//                 if (err) {
+//                     console.log('error uploading...', err);
+//                     reject(err);
+//                 } else {
+//                     console.log('successfully uploaded file...', data);
+//                     resolve(data);
+//                 }
+//             },
+//         );
+//     });
+// };
+
+// const cloudinary = require('cloudinary').v2;
 const { models } = require('../config/connection');
 const resolvers = {
     Query: {
@@ -104,47 +155,71 @@ const resolvers = {
 
             throw new AuthenticationError('You need to be logged in!');
         },
-        // uploadAvatar: async (parent, { avatar }, context) => {
-        //     const { createReadStream } = await avatar;
-        //     console.log(createReadStream);
-        //     cloudinary.config({
-        //         cloud_name: process.env.CLOUD_NAME,
-        //         api_key: process.env.API_KEY,
-        //         api_secret: process.env.API_SECRET
-        //     })
+        uploadAvatar: async (parent, { file }, context) => {
+            if (context.user) {
+                const { createReadStream, filename, mimetype, encoding } = await file;
 
-        //     try {
-        //         const result = await new Promise((resolve, reject) => {
-        //             createReadStream().pipe(
-        //                 cloudinary.uploader.upload_stream((error, result) => {
-        //                     if (error) {
-        //                         reject(error);
-        //                     }
-        //                     resolve(result);
-        //                 })
-        //             )
-        //         })
-        //         if (context.user) {
-        //             const updatedUser = await User.findByIdAndUpdate(
-        //                 { _id: context.user._id },
-        //                 { $set: { avatar: result.secure_url } },
-        //                 { new: true }
-        //             )
+                const uri = await avatarUploader.upload(createReadStream(), {
+                    filename,
+                    mimetype,
+                });
 
-        //             return updatedUser;
-        //             // const user = await models.User.findByPk(context.user_id)
+                return {
+                    filename,
+                    mimetype,
+                    encoding,
+                    uri,
+                };
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+    },
+    // uploadFile: async (parent, { file }, context) => {
+    //     const response = await handleFileUpload(file);
 
-        //             // await user.update({ avatar: result.secure_url })
+    //     return response;
+    // }
+    // uploadAvatar: async (parent, { avatar }, context) => {
+    //     const { createReadStream } = await avatar;
+    //     console.log(createReadStream);
+    //     cloudinary.config({
+    //         cloud_name: process.env.CLOUD_NAME,
+    //         api_key: process.env.API_KEY,
+    //         api_secret: process.env.API_SECRET
+    //     })
 
-        //             // return user;
-        //         }
+    //     try {
+    //         const result = await new Promise((resolve, reject) => {
+    //             createReadStream().pipe(
+    //                 cloudinary.uploader.upload_stream((error, result) => {
+    //                     if (error) {
+    //                         reject(error);
+    //                     }
+    //                     resolve(result);
+    //                 })
+    //             )
+    //         })
+    //         if (context.user) {
+    //             const updatedUser = await User.findByIdAndUpdate(
+    //                 { _id: context.user._id },
+    //                 { $set: { avatar: result.secure_url } },
+    //                 { new: true }
+    //             )
 
-        //         throw new AuthenticationError('You need to be logged in!');
-        //     } catch (error) {
-        //         throw new ApolloError('There was a problem uploading your avatar.')
-        //     }
-        // }
-    }
-};
+    //             return updatedUser;
+    //             // const user = await models.User.findByPk(context.user_id)
+
+    //             // await user.update({ avatar: result.secure_url })
+
+    //             // return user;
+    //         }
+
+    //         throw new AuthenticationError('You need to be logged in!');
+    //     } catch (error) {
+    //         throw new ApolloError('There was a problem uploading your avatar.')
+    //     }
+    // }
+}
+
 
 module.exports = resolvers;
