@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import Logo from '../Logo.png';
 
 function Navigation() {
   // set page pathname
@@ -20,7 +21,10 @@ function Navigation() {
           onClick={handleItemClick}
           as={Link}
           to='/'
-        />
+        >
+          <img src={Logo} />
+        </Menu.Item>
+
         <Menu.Item
           name='about'
           active={activeItem === 'about'}

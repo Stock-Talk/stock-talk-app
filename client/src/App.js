@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import './App.css'
 
 function App() {
   return (

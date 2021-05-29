@@ -5,8 +5,9 @@
 }
 
 body {
-  background-color: #b6b6b7;
-  color: var(--lightred);
+  background: rgb(63,63,79);
+background: radial-gradient(circle, rgba(63,63,79,1) 9%, rgba(36,33,35,1) 68%);
+    color: var(--lightred);
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -31,7 +32,7 @@ body {
 } */
 
 .App-header {
-  background-color: #282c34;
+  background-color: #fdfdfd;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
