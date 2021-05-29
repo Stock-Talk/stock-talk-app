@@ -26,7 +26,6 @@ type Post {
     username: String
     email: String
     friendCount: Int
-    avatar: String
     posts: [Post]
     friends: [User]
   }
@@ -46,11 +45,10 @@ type Post {
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!, avatar: String): Auth
+    addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!): Auth
     addPost(postText: String!): Post
     addComment(postId: ID!, commentBody: String!): Post
     addFriend(friendId: ID!): User
-    uploadAvatar(avatar: String!): User
   }
 `;
 

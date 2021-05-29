@@ -1,8 +1,6 @@
-require("dotenv").config();
 const { User, Post } = require('../models');
 const { AuthenticationError, ApolloError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
-const cloudinary = require('cloudinary').v2;
 const { models } = require('../config/connection');
 const resolvers = {
     Query: {
@@ -104,46 +102,7 @@ const resolvers = {
 
             throw new AuthenticationError('You need to be logged in!');
         },
-        // uploadAvatar: async (parent, { avatar }, context) => {
-        //     const { createReadStream } = await avatar;
-        //     console.log(createReadStream);
-        //     cloudinary.config({
-        //         cloud_name: process.env.CLOUD_NAME,
-        //         api_key: process.env.API_KEY,
-        //         api_secret: process.env.API_SECRET
-        //     })
 
-        //     try {
-        //         const result = await new Promise((resolve, reject) => {
-        //             createReadStream().pipe(
-        //                 cloudinary.uploader.upload_stream((error, result) => {
-        //                     if (error) {
-        //                         reject(error);
-        //                     }
-        //                     resolve(result);
-        //                 })
-        //             )
-        //         })
-        //         if (context.user) {
-        //             const updatedUser = await User.findByIdAndUpdate(
-        //                 { _id: context.user._id },
-        //                 { $set: { avatar: result.secure_url } },
-        //                 { new: true }
-        //             )
-
-        //             return updatedUser;
-        //             // const user = await models.User.findByPk(context.user_id)
-
-        //             // await user.update({ avatar: result.secure_url })
-
-        //             // return user;
-        //         }
-
-        //         throw new AuthenticationError('You need to be logged in!');
-        //     } catch (error) {
-        //         throw new ApolloError('There was a problem uploading your avatar.')
-        //     }
-        // }
     }
 };
 
