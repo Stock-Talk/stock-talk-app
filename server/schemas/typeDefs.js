@@ -30,6 +30,13 @@ type Post {
     friends: [User]
   }
 
+  type S3Object {
+    eTag: String
+    location: String
+    key: String
+    bucket: String
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -45,10 +52,11 @@ type Post {
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!): Auth
+    addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!, avatarUrl: String): Auth
     addPost(postText: String!): Post
     addComment(postId: ID!, commentBody: String!): Post
     addFriend(friendId: ID!): User
+    uploadFile(file: Upload!): S3Object
   }
 `;
 
