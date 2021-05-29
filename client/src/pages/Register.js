@@ -44,6 +44,14 @@ function Register() {
             />
             <Form.Input
               fluid
+              icon='user'
+              iconPosition='left'
+              placeholder='Username'
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
+            />
+            <Form.Input
+              fluid
               icon='lock'
               iconPosition='left'
               placeholder='Password'
