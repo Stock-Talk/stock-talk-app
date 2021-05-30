@@ -11,14 +11,12 @@ const postSchema = new Schema({
       createdAt: String,
     },
   ],
-  commentCount: String, // need logic for this
   likes: [
     {
       username: String,
       createdAt: String,
     },
   ],
-  likesCount: String, // need logic for this
   user: {
     type: Schema.Types.ObjectId,
     ref: 'users',

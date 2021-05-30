@@ -1,7 +1,6 @@
 {
-  "name": "merng",
+  "name": "mern",
   "version": "1.0.0",
-  "description": "",
   "scripts": {
     "serve": "nodemon index",
     "start": "node index"
@@ -10,13 +9,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.24.1",
+    "apollo-server": "^2.25.0",
     "bcryptjs": "^2.4.3",
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.11"
+    "mongoose": "^5.12.12",
+    "node": "^16.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-  }
+  },
+  "main": "index.js",
+  "description": ""
 }
