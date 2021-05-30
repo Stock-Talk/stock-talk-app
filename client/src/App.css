@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #b6b6b7;
+  background-color: #cdcdcd;
   color: var(--lightred);
   margin: 0;
   font-size: 1.2em;
@@ -16,11 +16,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.page-title {
+.page-title,
+.form-title {
   display: block !important;
   text-align: center;
   font-size: 1.2em;
   margin-top: 1.3em;
+}
+
+.btn-submit {
+  color: azure !important;
+  background-color: var(--lightred) !important;
+}
+
+.message {
+  color: rgb(108, 108, 108) !important;
+}
+
+.hotLink {
+  color: var(--lightred) !important;
 }
 
 /* .App-logo {
