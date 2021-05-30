@@ -26,6 +26,7 @@ type Post {
     username: String
     email: String
     friendCount: Int
+    avatarUpload: String
     posts: [Post]
     friends: [User]
   }
