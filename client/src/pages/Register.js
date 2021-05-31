@@ -1,144 +1,112 @@
-// import React, { useState } from 'react';
-// import {
-//   Button,
-//   Form,
-//   Grid,
-//   Header,
-//   Image,
-//   Message,
-//   Segment,
-// } from 'semantic-ui-react';
-// import { Link } from 'react-router-dom';
-// import { useMutation } from '@apollo/react-hooks';
-// import gql from 'graphql-tag';
+import React, { useContext, useState } from 'react';
+import { Button, Form } from 'semantic-ui-react';
+import { useMutation } from '@apollo/react-hooks';
 
-// // import { AuthContext } from '../../../utils/check-auth';
-// // // import { useForm } from '../util/hooks';
+import { CREATE_USER } from '../graphql/mutations';
+import { AuthContext } from '../utils/authContext';
+import { useForm } from '../utils/hooks';
 
-// const REGISTER_USER = gql`
-//   mutation register(
-//     $username: String!
-//     $email: String!
-//     $password: String!
-//     $confirmPassword: String!
-//   ) {
-//     register(
-//       registerInput: {
-//         username: $username
-//         email: $email
-//         password: $password
-//         confirmPassword: $confirmPassword
-//       }
-//     ) {
-//       id
-//       email
-//       username
-//       createdAt
-//       token
-//     }
-//   }
-// `;
+function Register(props) {
+  const context = useContext(AuthContext);
+  const [errors, setErrors] = useState({});
 
-// function Register(props) {
-//   //   const context = useContext(AuthContext);
-//   //   const [errors, setErrors] = useState({});
+  const { onChange, onSubmit, values } = useForm(registerUser, {
+    firstName: '',
+    lastName: '',
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
-//   //   const { onChange, onSubmit, values } = useForm(registerUser, {
-//   //     username: '',
-//   //     email: '',
-//   //     password: '',
-//   //     confirmPassword: '',
-//   //   });
+  const [addUser, { loading }] = useMutation(CREATE_USER, {
+    update(_, { data: { createUser: userData } }) {
+      context.login(userData);
+      props.history.push('/');
+    },
+    onError(err) {
+      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+    },
+    variables: values,
+  });
 
-//   // const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-//   //   update(_, { data: { register: userData } }) {
-//   //     context.login(userData);
-//   //     props.history.push('/');
-//   //   },
-//   //   onError(err) {
-//   //     setErrors(err.graphQLErrors[0].extensions.exceptions.errors);
-//   //   },
-//   //   variables: values,
-//   // });
+  function registerUser() {
+    addUser();
+  }
 
-//   // registerUser();
+  return (
+    <div className='form-container'>
+      <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
+        <h1>Register</h1>
+        <Form.Input
+          label='First Name'
+          placeholder='First Name'
+          name='firstname'
+          type='text'
+          value={values.firstName}
+          error={errors.firstName ? true : false}
+          onChange={onChange}
+        />
+        <Form.Input
+          label='Last Name'
+          placeholder='Last Name'
+          name='lastname'
+          type='text'
+          value={values.lastName}
+          error={errors.lastName ? true : false}
+          onChange={onChange}
+        />
+        <Form.Input
+          label='Username'
+          placeholder='Username'
+          name='username'
+          type='text'
+          value={values.username}
+          error={errors.username ? true : false}
+          onChange={onChange}
+        />
+        <Form.Input
+          label='Email'
+          placeholder='Email'
+          name='email'
+          type='email'
+          value={values.email}
+          error={errors.email ? true : false}
+          onChange={onChange}
+        />
+        <Form.Input
+          label='Password'
+          placeholder='Password'
+          name='password'
+          type='password'
+          value={values.password}
+          error={errors.password ? true : false}
+          onChange={onChange}
+        />
+        <Form.Input
+          label='Confirm Password'
+          placeholder='Confirm Password'
+          name='confirmPassword'
+          type='password'
+          value={values.passwordConfirm}
+          error={errors.passwordConfirm ? true : false}
+          onChange={onChange}
+        />
+        <Button type='submit' primary>
+          Register
+        </Button>
+      </Form>
+      {Object.keys(errors).length > 0 && (
+        <div className='ui error message'>
+          <ul className='list'>
+            {Object.values(errors).map((value) => (
+              <li key={value}>{value}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
 
-//   return (
-//     <Grid centered style={{ height: '80vh' }} verticalAlign='middle'>
-//       <Grid.Column style={{ maxWidth: 450 }}>
-//         <Form
-//           size='large'
-//           // onSubmit={onSubmit}
-//           noValidate
-//           // className={loading ? 'loading' : ''}
-//         >
-//           <Header className='form-title' style={{ marginBottom: 10 }}>
-//             <h1>
-//               <Image src='/logo.png' /> Create your account
-//             </h1>
-//           </Header>
-
-//           <Segment stacked>
-//             <Form.Input
-//               fluid
-//               icon='user'
-//               iconPosition='left'
-//               placeholder='Username'
-//               name='username'
-//               type='text'
-//               // value={values.username}
-//               // error={errors.username ? true : false}
-//               // onChange={onChange}
-//             />
-//             <Form.Input
-//               fluid
-//               icon='envelope'
-//               iconPosition='left'
-//               placeholder='Email'
-//               name='email'
-//               type='email'
-//               // value={values.email}
-//               // error={errors.email ? true : false}
-//               // onChange={onChange}
-//             />
-//             <Form.Input
-//               fluid
-//               icon='lock'
-//               iconPosition='left'
-//               placeholder='Password'
-//               name='password'
-//               type='password'
-//               // value={values.password}
-//               // error={errors.password ? true : false}
-//               // onChange={onChange}
-//             />
-//             <Form.Input
-//               fluid
-//               icon='lock'
-//               iconPosition='left'
-//               placeholder='Confirm Password'
-//               name='confirmPassword'
-//               type='password'
-//               // value={values.confirmPassword}
-//               // error={errors.confirmPassword ? true : false}
-//               // onChange={onChange}
-//             />
-
-//             <Button className='btn-submit' type='submit' fluid size='large'>
-//               Register
-//             </Button>
-//           </Segment>
-//         </Form>
-//         <Message className='message'>
-//           Already have an account?
-//           <Link className='hotLink' to='/login'>
-//             {' '}
-//             Login
-//           </Link>
-//         </Message>
-//       </Grid.Column>
-//     </Grid>
-//   );
-// }
-
-// export default Register;
+export default Register;

@@ -1,51 +1,39 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-import { Grid, GridRow, GridColumn } from 'semantic-ui-react';
-// import { POSTS_QUERY } from '../utils/queries';
-// import { ADD_FRIEND } from '../utils/mutations';
+import { Grid, Transition } from 'semantic-ui-react';
+
+import { ALL_POSTS_QUERY } from '../graphql/queries';
 import PostCard from '../components/PostCard.js';
 
 function Home() {
+  const { user } = useContext(AuthContext);
+  const {
+    loading,
+    data: { getPosts: posts },
+  } = useQuery(ALL_POSTS_QUERY);
+
   return (
-    <Grid columns={1}>
-      <GridRow className='page-title'>
-        <h2>Recent Posts</h2>
-      </GridRow>
-      <GridRow>
-        <GridColumn style={{ marginBottom: 20 }}>
-          <PostCard />
-        </GridColumn>
-      </GridRow>
+    <Grid columns={3}>
+      <Grid.Row className='page-title'>
+        <h1>Recent Posts</h1>
+      </Grid.Row>
+      <Grid.Row>
+        {user}
+        {loading ? (
+          <h1>Loading posts..</h1>
+        ) : (
+          <Transition.Group>
+            {posts &&
+              posts.map((post) => (
+                <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
+                  <PostCard post={post} />
+                </Grid.Column>
+              ))}
+          </Transition.Group>
+        )}
+      </Grid.Row>
     </Grid>
   );
 }
-
-// function Home() {
-//   const {
-//     loading,
-//     data: { posts },
-//   } = useQuery(POSTS_QUERY);
-//   posts ? console.log(posts) : console.log('no data found');
-//   return (
-//     <Grid columns={1}>
-//       <GridRow className='page-title'>
-//         <h2>Recent Posts</h2>
-//       </GridRow>
-//       <GridRow>
-//         {loading ? (
-//           <h2>Loading posts... </h2>
-//         ) : (
-//           posts &&
-//           posts.map((post) => (
-//             <GridColumn key={post.id} style={{ marginBottom: 20 }}>
-//               <PostCard post={post} />
-//             </GridColumn>
-//           ))
-//         )}
-//       </GridRow>
-//     </Grid>
-//   );
-// }
 
 export default Home;

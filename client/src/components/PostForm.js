@@ -1,10 +1,9 @@
 import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 
 import { useForm } from '../util/hooks';
-import { ALL_POSTS_QUERY } from '../utils/queries';
+import { USER_POSTS_QUERY } from '../utils/queries';
 import { CREATE_POST } from '../utils/mutations';
 
 function PostForm() {
@@ -16,11 +15,12 @@ function PostForm() {
     variables: values,
     update(proxy, result) {
       const data = proxy.readQuery({
-        query: ALL_POSTS_QUERY,
+        query: USER_POSTS_QUERY, // CHECK THIS THE USERS POSTS AND NOT ALL POSTS FROM ALL USERS
       });
-      data.getPosts = [result.data.createPost, ...data.getPosts];
-      proxy.writeQuery({ query: ALL_POSTS_QUERY, data });
-      values.body = '';
+      data.getPosts = [result.data.createPost, ...data.getUserPosts];
+      proxy.writeQuery({ query: USER_POSTS_QUERY, data });
+      //
+      values.body = ''; // CHECK THIS RENDERS OR CHANGE TO values.postText
     },
   });
 
@@ -29,7 +29,7 @@ function PostForm() {
   }
 
   return (
-    <>
+    <div>
       <Form onSubmit={onSubmit}>
         <h2>Create a post:</h2>
         <Form.Field>
@@ -52,7 +52,7 @@ function PostForm() {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }
 

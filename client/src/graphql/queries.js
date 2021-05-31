@@ -21,7 +21,7 @@ export const ALL_POSTS_QUERY = gql`
 
 // get all user posts for profile page
 export const USER_POSTS_QUERY = gql`
-  query getPosts($username: String) {
+  query getUserPosts($username: String) {
     posts(username: $username) {
       _id
       postText

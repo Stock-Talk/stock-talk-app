@@ -4,7 +4,6 @@ import ApolloClient from 'apollo-boost';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import NavMenu from './components/NavMenu';
-import Index from './pages/Index';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
@@ -31,8 +30,7 @@ function App() {
     <Router>
       <Container>
         <NavMenu />
-        <Route exact path='/' component={Index} />
-        <Route exact path='/home' component={Home} />
+        <Route exact path='/' component={Home} />
         <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
         <Route exact path='/profile/:username?' component={Profile} />

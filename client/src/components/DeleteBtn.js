@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/react-hooks';
 import { Button, Confirm, Icon } from 'semantic-ui-react';
-import { DELETE_COMMENT, DELETE_POST } from '../utils/mutations';
-import { ALL_POSTS_QUERY } from '../utils/queries';
+
+import { DELETE_COMMENT, DELETE_POST } from '../graphql/mutations';
+import { ALL_POSTS_QUERY } from '../graphql/queries';
 import MyPopup from '../utils/MyPopup';
 
 function DeleteBtn({ postId, commentId, callback }) {
@@ -16,7 +16,7 @@ function DeleteBtn({ postId, commentId, callback }) {
       setConfirmOpen(false);
       if (!commentId) {
         const data = proxy.readQuery({
-          query: ALL_POSTS_QUERY,
+          query: ALL_POSTS_QUERY, // CHECK THIS IS THE RIGHT QUERY TO RENDER ALL USERS POSTS
         });
         data.getPosts = data.getPosts.filter((p) => p.id !== postId);
         proxy.writeQuery({ query: ALL_POSTS_QUERY, data });
