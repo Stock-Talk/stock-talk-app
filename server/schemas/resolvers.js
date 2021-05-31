@@ -11,16 +11,17 @@ AWS.config.update({
     accessKeyId: process.env.AWS_ACCESS_ID,
     secretAccessKey: process.env.AWS_SECRET_KEY,
     region: process.env.AWS_REGION,
+    bucket: process.env.AWS_S3_BUCKET_NAME
 });
 
 const s3 = new AWS.S3({ region: process.env.AWS_REGION });
 
 const s3DefaultParams = {
     ACL: 'public-read',
-    Bucket: process.env.S3_BUCKET_NAME,
+    Bucket: process.env.AWS_S3_BUCKET_NAME,
     Conditions: [
-        ['content-length-range', 0, 256000], // 256k Kb
-        { acl: 'public-read' },
+        ['content-length-range', 0, 256000] // 256k Kb
+        
     ],
 };
 
@@ -33,7 +34,8 @@ const handleFileUpload = async file => {
         s3.upload(
             {
                 ...s3DefaultParams,
-                Body: createReadStream(),
+                Body: "this is body test",
+                // Body: createReadStream(),
                 Key: `${key}/${filename}`,
             },
             (err, data) => {
@@ -86,7 +88,6 @@ const resolvers = {
     },
     Mutation: {
         addUser: async (parent, args) => {
-            console.log(args);
             const user = await User.create(args);
             const token = signToken(user);
 
@@ -152,8 +153,14 @@ const resolvers = {
         uploadFile: async (parent, { file }, context) => {
             if (context.user) {
                 const response = await handleFileUpload(file);
-
-                return response;
+                console.log("this is response line 156" + JSON.stringify(response));
+                var newFile = JSON.stringify(response);
+                console.log("this is newFile" + newFile);
+                var parsedFile = JSON.parse(newFile);
+                console.log("this is parsedFile Location " + parsedFile.Location);
+                // return parsedFile.Location;
+                return parsedFile;
+                // return response;
             }
             throw new AuthenticationError('You need to be logged in!');
         }
