@@ -1,52 +1,71 @@
-import React, { useState } from 'react';
-import { Menu } from 'semantic-ui-react';
+import React from 'react';
+import Auth from '../utils/auth';
 import { Link } from 'react-router-dom';
 
-function NavMenu() {
-  // set page pathname
-  const pathname = window.location.pathname;
-  const path = pathname === '/' ? 'home' : pathname.substring(1);
-  const [activeItem, setActiveItem] = useState(path);
-
-  // click handler
-  const handleItemClick = (e, { name }) => setActiveItem(name);
-
+const NavMenu = () => {
+  // loggedIn Menu
   return (
     <div>
-      <Menu pointing secondary size='large' color='red'>
-        <Menu.Item
-          name='home'
-          active={activeItem === 'home'}
-          onClick={handleItemClick}
-          as={Link}
-          to='/'
-        />
-        {/* <Menu.Item
-          name='about'
-          active={activeItem === 'about'}
-          onClick={handleItemClick}
-          as={Link}
-          to='/about'
-        /> */}
-        <Menu.Menu position='right'>
-          <Menu.Item
-            name='login'
-            active={activeItem === 'login'}
-            onClick={handleItemClick}
-            as={Link}
-            to='/login'
-          />
-          <Menu.Item
-            name='register'
-            active={activeItem === 'register'}
-            onClick={handleItemClick}
-            as={Link}
-            to='/register'
-          />
-        </Menu.Menu>
-      </Menu>
+      <div className='ui secondary pointing menu'>
+        <Link className='ui item' to='/home'>
+          Home
+        </Link>
+        <Link className='ui item' to='/profile'>
+          Profile
+        </Link>
+        <div className='right menu'>
+          <Link className='right item' to='/'>
+            Logout
+          </Link>
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+// const NavMenu = () => {
+//   if (Auth.loggedIn) {
+//     return (
+//       <div>
+//         <div class='ui secondary pointing menu'>
+//           <Link class='ui item' to='/myhome'>
+//             Home
+//           </Link>
+//   <Link class='ui item' to='/profile'>
+//    Profile
+//  </Link>
+//           <div class='right menu'>
+//
+
+//             <Link class='right item' to='/'>
+//               Logout
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   } else {
+//     return (
+//       <div>
+//         <div class='ui secondary pointing menu'>
+//           <Link class='ui item' to='/'>
+//             Home
+//           </Link>
+//           <div class='right menu'>
+//             <Link class='ui item' to='/login'>
+//               Login
+//             </Link>
+//             <Link class='right item' to='/register'>
+//               Register
+//             </Link>
+//           </div>
+//         </div>
+//         <div class='ui segment'>
+//           <image>Image here</image>
+//         </div>
+//       </div>
+//     );
+//   }
+// };
 
 export default NavMenu;

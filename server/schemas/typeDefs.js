@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 
 // create our typeDefs
 const typeDefs = gql`
-type Post {
+  type Post {
     _id: ID
     postText: String
     createdAt: String
@@ -45,8 +45,14 @@ type Post {
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(firstName: String!, lastName: String!, username: String!, email: String!, password: String!): Auth
-    addPost(postText: String!): Post
+    createUser(
+      firstName: String!
+      lastName: String!
+      username: String!
+      email: String!
+      password: String!
+    ): Auth
+    createPost(postText: String!): Post
     addComment(postId: ID!, commentBody: String!): Post
     addFriend(friendId: ID!): User
   }

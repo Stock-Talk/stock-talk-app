@@ -1,25 +1,41 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
+import ApolloClient from 'apollo-boost';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import NavMenu from './components/NavMenu';
+import Index from './pages/Index';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Register from './pages/Register';
 
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
-import NavMenu from './components/NavMenu';
-import Home from './pages/Home';
-// import About from './pages/About';
-// import Login from './pages/Login';
-import Register from './pages/Register';
+const client = new ApolloClient({
+  request: (operation) => {
+    const token = localStorage.getItem('id_token');
+
+    operation.setContext({
+      headers: {
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+  },
+  uri: '/graphql',
+});
 
 function App() {
   return (
     <Router>
       <Container>
         <NavMenu />
-        <Route exact path='/' component={Home} />
-        {/* <Route exact path='/about' component={About} /> */}
-        {/* <Route exact path='/login' component={Login} /> */}
+        <Route exact path='/' component={Index} />
+        <Route exact path='/home' component={Home} />
+        <Route exact path='/login' component={Login} />
         <Route exact path='/register' component={Register} />
+        <Route exact path='/profile/:username?' component={Profile} />
       </Container>
     </Router>
   );
