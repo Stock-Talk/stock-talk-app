@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { LOGIN_USER } from "../utils/mutations";
+import { ADD_USER } from "../utils/mutations";
+
+import Auth from "../utils/auth";
 import {
   Button,
   Form,
@@ -11,13 +13,18 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import "./Login.css";
+import "./Register.css";
 import Logo from "../Logo.png";
-import Auth from "../utils/auth";
 
-const Login = (props) => {
-  const [formState, setFormState] = useState({ email: "", password: "" });
-  const [login, { error }] = useMutation(LOGIN_USER);
+const Signup = () => {
+  const [formState, setFormState] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+  });
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -34,29 +41,50 @@ const Login = (props) => {
     event.preventDefault();
 
     try {
-      const { data } = await login({
+      const { data } = await addUser({
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
+      Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
     }
-
-    // clear form values
-    setFormState({
-      email: "",
-      password: "",
-    });
   };
 
   return (
     <Grid textAlign="center" style={{ height: "100vh" }} verticalAlign="middle">
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center" id="loginheader">
-          <Image src={Logo} /> Log-in to your account
+        <Header as="h2" color="teal" textAlign="center" id="hdrtitle">
+          <Image src={Logo} /> Create your account
         </Header>
         <Form onSubmit={handleFormSubmit}>
+          <input
+            className="form-input"
+            placeholder="First Name"
+            name="firstName"
+            type="firstName"
+            id="firstName"
+            value={formState.firstName}
+            onChange={handleChange}
+          />
+          <input
+            className="form-input"
+            placeholder="Last Name"
+            name="lastName"
+            type="lastName"
+            id="lastName"
+            value={formState.lastName}
+            onChange={handleChange}
+          />
+          <input
+            className="form-input"
+            placeholder="Username"
+            name="username"
+            type="username"
+            id="username"
+            value={formState.username}
+            onChange={handleChange}
+          />
           <input
             className="form-input"
             placeholder="Your email"
@@ -75,16 +103,16 @@ const Login = (props) => {
             value={formState.password}
             onChange={handleChange}
           />
-          <Button className="btn d-block w-100" type="submit">
-            Submit
+          <Button color="teal" fluid size="large" id="registerbtn">
+            Register
           </Button>
         </Form>
         <Message>
-          New to us? <Link to="/register">Sign Up</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </Message>
       </Grid.Column>
     </Grid>
   );
 };
 
-export default Login;
+export default Signup;

@@ -1,7 +1,7 @@
 {
   "name": "merng",
   "version": "1.0.0",
-  "description": "",
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "scripts": {
     "start": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
@@ -17,6 +17,7 @@
     "graphql": "^15.5.0",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "mongodb": "^3.6.8",
     "mongoose": "^5.12.11",
     "react-materialize": "^3.9.8"
@@ -24,5 +25,14 @@
   "devDependencies": {
     "concurrently": "^6.2.0",
     "nodemon": "^2.0.7"
-  }
+  },
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stock-Talk/stock-talk-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Stock-Talk/stock-talk-app/issues"
+  },
+  "homepage": "https://github.com/Stock-Talk/stock-talk-app#readme"
 }
