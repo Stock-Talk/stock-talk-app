@@ -14,7 +14,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import './App.css'
 
-
+const client = new ApolloClient({
+  uri: '/graphql'
+});
 
 function App() {
   return (
