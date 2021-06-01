@@ -13,10 +13,13 @@
   "dependencies": {
     "apollo-server": "^2.24.1",
     "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
     "graphql": "^15.5.0",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.12.11"
+    "mongodb": "^3.6.8",
+    "mongoose": "^5.12.11",
+    "react-materialize": "^3.9.8"
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
