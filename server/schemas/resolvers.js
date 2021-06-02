@@ -3,6 +3,9 @@ const { AuthenticationError, ApolloError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 const { models } = require('../config/connection');
 
+// const {ApolloServer, gql, GraphQLUpload} = require('apollo-server');
+
+
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 require('dotenv').config();
@@ -31,11 +34,12 @@ const handleFileUpload = async file => {
     const key = uuidv4();
 
     return new Promise((resolve, reject) => {
+        debugger;
         s3.upload(
             {
                 ...s3DefaultParams,
-                Body: "this is body test",
-                // Body: createReadStream(),
+                // Body: "this is body test",
+                Body: createReadStream(),
                 Key: `${key}/${filename}`,
             },
             (err, data) => {
@@ -52,6 +56,9 @@ const handleFileUpload = async file => {
 };
 
 const resolvers = {
+    // fileUpload: GraphQLUpload,
+
+
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {

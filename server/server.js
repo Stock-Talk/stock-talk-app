@@ -9,18 +9,23 @@ const {authMiddleware} = require('./utils/auth');
 
 const db = require('./config/connection');
 
+// const { graphqlUploadExpress } = require ('graphql-upload');
+
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 // create a new Apollo server and pass in our schema data
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  // uploads: false,
   context: authMiddleware
 });
 
 // integrate our Apollo server with the Express application as middleware
 server.applyMiddleware({ app });
+
+// app.use(graphqlUploadExpress({ maxFileSize: 1000000000, maxFiles: 10 }));
+
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
