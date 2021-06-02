@@ -18,12 +18,6 @@ const client = new ApolloClient({
   uri: '/graphql'
 });
 
-import NavMenu from './components/NavMenu';
-import Home from './pages/Home';
-// import About from './pages/About';
-// import Login from './pages/Login';
-import Register from './pages/Register';
-
 function App() {
   return (
     <Router>
