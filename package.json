@@ -2,5 +2,12 @@
   "dependencies": {
     "express": "^4.17.1",
     "react-materialize": "^3.9.8"
+  },
+  "scripts": {
+    "install": "cd server && npm i && cd ../client && npm i",
+    "start": "concurrently \"cd server && npm run watch\" \"cd client && npm start\""
+  },
+  "devDependencies": {
+    "concurrently": "^6.2.0"
   }
 }
