@@ -8,9 +8,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { QUERY_THOUGHTS, QUERY_ME_BASIC } from "../utils/queries";
 
 import PostCard from "../components/PostCard.js";
-import TestPostCardII from "../components/TestPostCard2.js";
-import TestPostCardIII from "../components/TestPostCard3.js";
-import TestPostCardIV from "../components/TestPostCard4";
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_THOUGHTS);

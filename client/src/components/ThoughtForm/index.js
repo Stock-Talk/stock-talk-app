@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-
-import { useMutation } from '@apollo/react-hooks';
-import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+import React, { useState } from "react";
+import { Card, Image, Button, Icon, Label } from "semantic-ui-react";
+import PostType from "../PostType";
+import { useMutation } from "@apollo/react-hooks";
+import { ADD_THOUGHT } from "../../utils/mutations";
+import { QUERY_THOUGHTS, QUERY_ME } from "../../utils/queries";
 
 const ThoughtForm = () => {
-  const [thoughtText, setText] = useState('');
+  const [thoughtText, setText] = useState("");
   const [characterCount, setCharacterCount] = useState(0);
 
   const [addThought, { error }] = useMutation(ADD_THOUGHT, {
@@ -16,7 +17,7 @@ const ThoughtForm = () => {
         const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
         cache.writeQuery({
           query: QUERY_THOUGHTS,
-          data: { thoughts: [addThought, ...thoughts] }
+          data: { thoughts: [addThought, ...thoughts] },
         });
       } catch (e) {
         console.error(e);
@@ -26,13 +27,13 @@ const ThoughtForm = () => {
       const { me } = cache.readQuery({ query: QUERY_ME });
       cache.writeQuery({
         query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } }
+        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
       });
-    }
+    },
   });
 
   // update state based on form input changes
-  const handleChange = event => {
+  const handleChange = (event) => {
     if (event.target.value.length <= 280) {
       setText(event.target.value);
       setCharacterCount(event.target.value.length);
@@ -40,16 +41,16 @@ const ThoughtForm = () => {
   };
 
   // submit form
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
       await addThought({
-        variables: { thoughtText }
+        variables: { thoughtText },
       });
 
       // clear form value
-      setText('');
+      setText("");
       setCharacterCount(0);
     } catch (e) {
       console.error(e);
@@ -57,26 +58,39 @@ const ThoughtForm = () => {
   };
 
   return (
-    <div>
-      <p className={`m-0 ${characterCount === 280 || error ? 'text-error' : ''}`}>
-        Character Count: {characterCount}/280
-        {error && <span className="ml-2">Something went wrong...</span>}
-      </p>
-      <form
-        className="flex-row justify-center justify-space-between-md align-stretch"
-        onSubmit={handleFormSubmit}
-      >
-        <textarea
-          placeholder="Here's a new thought..."
-          value={thoughtText}
-          className="form-input col-12 col-md-9"
-          onChange={handleChange}
-        ></textarea>
-        <button className="btn col-12 col-md-3" type="submit">
-          Submit
-        </button>
-      </form>
-    </div>
+    <Card.Group centered>
+      <Card fluid>
+        <Card.Content>
+          <Image
+            floated="right"
+            size="mini"
+            src="https://listimg.pinclipart.com/picdir/s/133-1332476_crowd-of-users-transparent-user-icon-png-clipart.png"
+          />
+          <Card.Header>username here</Card.Header>
+          <Card.Meta>createdAt</Card.Meta>
+          {/*  insert PostType here... see component for details */}
+          <PostType />
+        </Card.Content>
+        <Card.Content extra>
+          <Button as="div" labelPosition="right">
+            <Button color="orange">
+              <Icon className="thumbs up" />
+            </Button>
+            <Label as="a" basic color="orange" pointing="left">
+              48 display likeCount
+            </Label>
+          </Button>
+          <Button as="div" labelPosition="right">
+            <Button basic color="blue">
+              <Icon className="comments" />
+            </Button>
+            <Label as="a" basic color="blue" pointing="left">
+              25 diplay commentCount
+            </Label>
+          </Button>
+        </Card.Content>
+      </Card>
+    </Card.Group>
   );
 };
 
