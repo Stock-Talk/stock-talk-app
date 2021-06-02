@@ -1,152 +1,84 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Form,
-  Grid,
-  Header,
-  Image,
-  Message,
-  Segment,
-} from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-
-// import { AuthContext } from '../../../utils/check-auth';
-// import { useForm } from '../util/hooks';
-
-const REGISTER_USER = gql`
-  mutation register(
-    $username: String!
-    $email: String!
-    $password: String!
-    $confirmPassword: String!
-  ) {
-    register(
-      registerInput: {
-        username: $username
-        email: $email
-        password: $password
-        confirmPassword: $confirmPassword
-      }
-    ) {
-      id
-      email
-      username
-      createdAt
-      token
-    }
-  }
-`;
-
-function Register(props) {
-  const context = useContext(AuthContext);
-  const [errors, setErrors] = useState({});
-
-  const { onChange, onSubmit, values } = useForm(registerUser, {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
+import './Register.css'
+import Logo from '../Logo.png'
+function Register() {
+  // Record what the user is typing in to the inputs
+  // Record those inputs in state
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    confirmPassword: ""
   });
 
-  // const [registerUser, { loading }] = useMutation(REGISTER_USER, {
-  //   update(_, { data: { register: userData } }) {
-  //     context.login(userData);
-  //     props.history.push('/');
-  //   },
-  //   onError(err) {
-  //     setErrors(err.graphQLErrors[0].extensions.exceptions.errors);
-  //   },
-  //   variables: values,
-  // });
-
-  registerUser();
+  const register = (e) => {
+    e.preventDefault();
+    console.log('submitting form..', user);
+    // We want to make an HTTP request to the backend to register this user
+    // TODO: What route do we need to hit in order to register a user?
+    fetch('', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    })
+  }
 
   return (
-    <Grid centered style={{ height: '80vh' }} verticalAlign='middle'>
+    <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
       <Grid.Column style={{ maxWidth: 450 }}>
-        <Form
-          size='large'
-          onSubmit={onSubmit}
-          noValidate
-          className={loading ? 'loading' : ''}
-        >
-          <Header className='form-title' style={{ marginBottom: 10 }}>
-            <h1>
-              <Image src='/logo.png' /> Create your account
-            </h1>
-          </Header>
-
+        <Header as='h2' color='teal' textAlign='center' id='hdrtitle'>
+          <Image src={Logo} /> Create your account
+      </Header>
+        <Form onSubmit={register} size='large'>
           <Segment stacked>
             <Form.Input
               fluid
               icon='user'
               iconPosition='left'
-              placeholder='Username'
-              name='username'
-              type='text'
-              value={values.username}
-              error={errors.username ? true : false}
-              onChange={onChange}
+              placeholder='E-mail address'
+              value={user.email}
+              onChange={(e) => setUser({ ...user, email: e.target.value })}
             />
             <Form.Input
               fluid
-              icon='envelope'
+              icon='user'
               iconPosition='left'
-              placeholder='Email'
-              name='email'
-              type='email'
-              value={values.email}
-              error={errors.email ? true : false}
-              onChange={onChange}
+              placeholder='Username'
+              value={user.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
             />
             <Form.Input
               fluid
               icon='lock'
               iconPosition='left'
               placeholder='Password'
-              name='password'
               type='password'
-              value={values.password}
-              error={errors.password ? true : false}
-              onChange={onChange}
+              value={user.password}
+              onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
             <Form.Input
               fluid
               icon='lock'
               iconPosition='left'
               placeholder='Confirm Password'
-              name='confirmPassword'
               type='password'
-              value={values.confirmPassword}
-              error={errors.confirmPassword ? true : false}
-              onChange={onChange}
+              value={user.confirmPassword}
+              onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
             />
 
-            <Button className='btn-submit' type='submit' fluid size='large'>
+            <Button color='teal' fluid size='large' id='registerbtn'>
               Register
-            </Button>
+          </Button>
           </Segment>
         </Form>
-        <Message className='message'>
-          Already have an account?
-          <Link className='hotLink' to='/login'>
-            {' '}
-            Login
-          </Link>
+        <Message>
+          Already have an account? <Link to="/login">Login</Link>
         </Message>
-
-        {Object.keys(errors).length > 0 && (
-          <div className='ui error message'>
-            <ul className='list'>
-              {Object.values(errors).map((value) => (
-                <li key={value}>{value}</li>
-              ))}
-            </ul>
-          </div>
-        )}
       </Grid.Column>
+
     </Grid>
   );
 }
