@@ -56,9 +56,6 @@ const handleFileUpload = async file => {
 };
 
 const resolvers = {
-    // fileUpload: GraphQLUpload,
-
-
     Query: {
         me: async (parent, args, context) => {
             if (context.user) {
