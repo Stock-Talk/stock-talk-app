@@ -12,6 +12,8 @@ import {
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import "./App.css";
+// import "../index.css";
 import Logo from "../Logo.png";
 import Auth from "../utils/auth";
 

@@ -37,9 +37,11 @@ import gql from "graphql-tag";
 // `;
 
 export const QUERY_USER = gql`
-  query user($username: String!) {
+  query user($firstName: String!, lastName: String!,$username: String!) {
     user(username: $username) {
       _id
+      firstName
+      lastName
       username
       email
       friendCount
