@@ -30,11 +30,9 @@ const s3DefaultParams = {
 
 const handleFileUpload = async file => {
     const { createReadStream, filename } = await file;
-
     const key = uuidv4();
 
     return new Promise((resolve, reject) => {
-        debugger;
         s3.upload(
             {
                 ...s3DefaultParams,
