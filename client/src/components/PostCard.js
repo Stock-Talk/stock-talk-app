@@ -1,63 +1,52 @@
 import React from 'react';
-import { Button, Card, Icon, Label, Image } from 'semantic-ui-react';
-// import { Link } from 'react-router-dom';
-// import moment from 'moment';
+import { Card, Image, Button, Icon, Label } from 'semantic-ui-react';
+import PostType from './PostType';
 
-// function PostCard({
-//   post: { id, body, createdAt, username, likeCount, likes, commentCount },
-// }) {
-//   return (
-//     <Card fluid>
-//       <Card.Content>
-//         <Image
-//           flaoted='right'
-//           size='mini'
-//           src='https://semantic-ui.com/images/avatar/large/elliot.jpg'
-//         ></Image>
-//         <Card.Header>{username} Ellio Fu</Card.Header>
-//         <Card.Meta as={Link} to={`/posts/${id}`}>
-//           {moment(createdAt).fromNow(true)} Metadata
-//         </Card.Meta>
-//         <Card.Description>{body} post body here</Card.Description>
-//       </Card.Content>
-//       <Card.Content extra>
-//         <Button as='div' labelPosition='right'>
-//           <Button color='pink'>
-//             <Icon name='thumbs up outline icon' />
-//           </Button>
-//         </Button>
-//         <Label basic color='red' pointing='left'>
-//           {likeCount}2,003
-//         </Label>
-//       </Card.Content>
-//     </Card>
-//   );
-// }
+//// TODO:
+//    add logic to pull date post is created
+//    add logic to pull username & post body
+//    add logic to pull user avatar (Later feature)
 
 function PostCard() {
   return (
-    <Card fluid>
-      <Card.Content>
-        <Image
-          flaoted='right'
-          size='mini'
-          src='https://semantic-ui.com/images/avatar/large/elliot.jpg'
-        ></Image>
-        <Card.Header> Elliot Fu</Card.Header>
-        <Card.Meta> MM/DD/YYYY</Card.Meta>
-        <Card.Description>post body here</Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <Button as='div' labelPosition='right'>
-          <Button color='pink'>
-            <Icon name='thumbs up outline icon' />
+    <Card.Group centered>
+      <Card fluid>
+        <Card.Content>
+          <Image
+            floated='right'
+            size='mini'
+            src='https://listimg.pinclipart.com/picdir/s/133-1332476_crowd-of-users-transparent-user-icon-png-clipart.png'
+          />
+          <Card.Header>username here</Card.Header>
+          <Card.Meta>createdAt</Card.Meta>
+          {/*  PostType goes here from Component*/}
+          <Card.Description name='text'>
+            POST TEXT HERE Maxime mollitia, molestiae quas vel sint commodi
+            repudiandae consequuntur voluptatum laborum numquam blanditiis harum
+            quisquam eius sed odit fugiat.
+          </Card.Description>
+        </Card.Content>
+        <Card.Content extra>
+          {/* DONT HAVE THIS FEATURE YET */}
+          {/* <Button as='div' labelPosition='right'>
+            <Button color='orange'>
+              <Icon className='thumbs up' />
+            </Button>
+            <Label as='a' basic color='orange' pointing='left'>
+              48 display likeCount
+            </Label>
+          </Button> */}
+          <Button as='div' labelPosition='right'>
+            <Button basic color='blue'>
+              <Icon className='comments' />
+            </Button>
+            <Label as='a' basic color='blue' pointing='left'>
+              25 diplay commentCount
+            </Label>
           </Button>
-        </Button>
-        <Label basic color='red' pointing='left'>
-          15
-        </Label>
-      </Card.Content>
-    </Card>
+        </Card.Content>
+      </Card>
+    </Card.Group>
   );
 }
 
