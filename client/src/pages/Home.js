@@ -1,60 +1,33 @@
-// import React from 'react';
-// import PostCard from '../components/PostCard.js';
-// import { Grid, Transition } from 'semantic-ui-react';
+import React from 'react';
+import { Grid, Header } from 'semantic-ui-react';
+import Feed from '../components/AllPostFeed';
+import CreatePost from '../components/CapturePost';
+import './Home.css';
 
-// function Home() {
-//   return (
-//     <Grid columns={3}>
-//       <Grid.Row className='page-title'>
-//         <h1>Recent Posts</h1>
-//       </Grid.Row>
-//       <Grid.Row>
-//         <Transition.Group>
-//           <Grid.Column key='{post.id}' style={{ marginBottom: 20 }}>
-//             <PostCard post='{post}' />
-//           </Grid.Column>
-//         </Transition.Group>
-//       </Grid.Row>
-//     </Grid>
-//   );
-// }
+const Home = () => {
+  return (
+    <div>
+      <Grid celled='internally' stackable>
+        <Grid.Row className='section-header'>
+          <Grid.Column floated='right' className='recent-activity' width={16}>
+            <Header className='page-title' textAlign='center'>
+              Recent Activity
+            </Header>
+          </Grid.Column>
+        </Grid.Row>
 
-// import React from 'react';
-// import { useQuery } from '@apollo/react-hooks';
-// import PostCard from '../components/PostCard.js';
-// import { Grid, Transition } from 'semantic-ui-react';
-// import { ALL_POSTS_QUERY } from '../graphql/queries';
-// import PostCard from '../components/PostCard.js';
+        <Grid.Row className='section-content'>
+          <Grid.Column floated='right' className='feed home-feed' width={16}>
+            {/* Button to create post in PostForm component */}
+            <CreatePost />
 
-// function Home() {
-//   const { user } = useContext(AuthContext);
-//   const {
-//     loading,
-//     data: { getPosts: posts },
-//   } = useQuery(ALL_POSTS_QUERY);
-
-//   return (
-//     <Grid columns={3}>
-//       <Grid.Row className='page-title'>
-//         <h1>Recent Posts</h1>
-//       </Grid.Row>
-//       <Grid.Row>
-//         {user}
-//         {loading ? (
-//           <h1>Loading posts..</h1>
-//         ) : (
-//           <Transition.Group>
-//             {posts &&
-//               posts.map((post) => (
-//                 <Grid.Column key={post.id} style={{ marginBottom: 20 }}>
-//                   <PostCard post={post} />
-//                 </Grid.Column>
-//               ))}
-//           </Transition.Group>
-//         )}
-//       </Grid.Row>
-//     </Grid>
-//   );
-// }
+            {/* Feed component */}
+            <Feed />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
+    </div>
+  );
+};
 
 export default Home;

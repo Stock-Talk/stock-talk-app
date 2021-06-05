@@ -1,112 +1,118 @@
-// import React, { useContext, useState } from 'react';
-// import { Button, Form } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+import './Register.css';
+import Logo from '../images/Logo.png';
+
+////////*** NEED TO SET UP FILES AND INSTALL DEPENDENCIES TO IMPORT ********
 // import { useMutation } from '@apollo/react-hooks';
+// import Auth from "../utils/auth";
+// import { ADD_USER } from "../utils/mutations";
 
-// import { CREATE_USER } from '../graphql/mutations';
-// import { AuthContext } from '../utils/authContext';
-// import { useForm } from '../utils/hooks';
+function Register(props) {
+  const [user, setUser] = useState({
+    email: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+  });
+  // const [addUser] = useMutation(ADD_USER);
 
-// function Register(props) {
-//   const context = useContext(AuthContext);
-//   const [errors, setErrors] = useState({});
+  // const handleFormSubmit = async (event) => {
+  //   event.preventDefault();
+  //   const mutationResponse = await addUser({
+  //     variables: {
+  //       username: user.username,
+  //       email: user.email,
+  //       password: user.password,
+  //       confirmPassword: user.confirmPassword,
+  //     },
+  //   });
+  //   const token = mutationResponse.data.addUser.token;
+  //   Auth.login(token);
+  // };
 
-//   const { onChange, onSubmit, values } = useForm(registerUser, {
-//     firstName: '',
-//     lastName: '',
-//     username: '',
-//     email: '',
-//     password: '',
-//     confirmPassword: '',
-//   });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUser({
+      ...user,
+      [name]: value,
+    });
+  };
 
-//   const [addUser, { loading }] = useMutation(CREATE_USER, {
-//     update(_, { data: { createUser: userData } }) {
-//       context.login(userData);
-//       props.history.push('/');
-//     },
-//     onError(err) {
-//       setErrors(err.graphQLErrors[0].extensions.exception.errors);
-//     },
-//     variables: values,
-//   });
+  return (
+    <div>
+      <Grid
+        textAlign='center'
+        style={{ height: '70vh' }}
+        verticalAlign='middle'
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center' id='hdrtitle'>
+            <Image src={Logo} /> Create your account
+          </Header>
+          {/* unquote {register} */}
+          <Form onSubmit='{register}' size='large'>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                name='username'
+                placeholder='Username'
+                value={user.username}
+                onChange={handleChange}
+              />
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                name='email'
+                placeholder='E-mail address'
+                value={user.email}
+                onChange={handleChange}
+              />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                name='password'
+                placeholder='Password'
+                type='password'
+                value={user.password}
+                onChange={handleChange}
+              />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                name='confirmpassword'
+                placeholder='Confirm Password'
+                type='password'
+                value={user.confirmPassword}
+                onChange={handleChange}
+              />
 
-//   function registerUser() {
-//     addUser();
-//   }
+              <Button color='teal' fluid size='large' id='registerbtn'>
+                Register
+              </Button>
+            </Segment>
+          </Form>
+          <Message>
+            Already have an account? <Link to='/login'>Login</Link>
+          </Message>
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
+}
 
-//   return (
-//     <div className='form-container'>
-//       <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
-//         <h1>Register</h1>
-//         <Form.Input
-//           label='First Name'
-//           placeholder='First Name'
-//           name='firstname'
-//           type='text'
-//           value={values.firstName}
-//           error={errors.firstName ? true : false}
-//           onChange={onChange}
-//         />
-//         <Form.Input
-//           label='Last Name'
-//           placeholder='Last Name'
-//           name='lastname'
-//           type='text'
-//           value={values.lastName}
-//           error={errors.lastName ? true : false}
-//           onChange={onChange}
-//         />
-//         <Form.Input
-//           label='Username'
-//           placeholder='Username'
-//           name='username'
-//           type='text'
-//           value={values.username}
-//           error={errors.username ? true : false}
-//           onChange={onChange}
-//         />
-//         <Form.Input
-//           label='Email'
-//           placeholder='Email'
-//           name='email'
-//           type='email'
-//           value={values.email}
-//           error={errors.email ? true : false}
-//           onChange={onChange}
-//         />
-//         <Form.Input
-//           label='Password'
-//           placeholder='Password'
-//           name='password'
-//           type='password'
-//           value={values.password}
-//           error={errors.password ? true : false}
-//           onChange={onChange}
-//         />
-//         <Form.Input
-//           label='Confirm Password'
-//           placeholder='Confirm Password'
-//           name='confirmPassword'
-//           type='password'
-//           value={values.passwordConfirm}
-//           error={errors.passwordConfirm ? true : false}
-//           onChange={onChange}
-//         />
-//         <Button type='submit' primary>
-//           Register
-//         </Button>
-//       </Form>
-//       {Object.keys(errors).length > 0 && (
-//         <div className='ui error message'>
-//           <ul className='list'>
-//             {Object.values(errors).map((value) => (
-//               <li key={value}>{value}</li>
-//             ))}
-//           </ul>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default Register;
+export default Register;

@@ -1,72 +1,98 @@
-// import React from 'react';
-// import { Button, Form } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import {
+  Button,
+  Form,
+  Grid,
+  Header,
+  Image,
+  Message,
+  Segment,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+
+import './Login.css';
+import Logo from '../images/Logo.png';
+
+////////*** NEED TO SET UP FILES AND INSTALL DEPENDENCIES TO IMPORT ********
 // import { useMutation } from '@apollo/react-hooks';
+// import { LOGIN } from "../utils/mutations"
+// import Auth from "../utils/auth";
 
-// import { LOGIN_USER } from '../graphql/mutations';
-// import { AuthContext } from '../utils/authContext';
-// import { useForm } from '../utils/hooks';
+function Login() {
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  //   const [login, { error }] = useMutation(LOGIN);
 
-// function Login(props) {
-//   const context = useContext(AuthContext);
-//   const [errors, setErrors] = useState({});
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    //     try {
+    //       const mutationResponse = await login({ variables: { username: formState.username, password: formState.password } })
+    //       const token = mutationResponse.data.login.token;
+    //       Auth.login(token);
+    //     } catch (e) {
+    //       console.log(e)
+    //     }
+  };
 
-//   const { onChange, onSubmit, values } = useForm(loginUserCallback, {
-//     username: '',
-//     password: '',
-//   });
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
 
-//   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-//     update(_, { data: { login: userData } }) {
-//       context.login(userData);
-//       props.history.push('/');
-//     },
-//     onError(err) {
-//       setErrors(err.graphQLErrors[0].extensions.exception.errors);
-//     },
-//     variables: values,
-//   });
+  return (
+    <div>
+      <Grid
+        textAlign='center'
+        style={{ height: '70vh' }}
+        verticalAlign='middle'
+      >
+        <Grid.Column style={{ maxWidth: 450 }}>
+          <Header as='h2' color='teal' textAlign='center' id='loginheader'>
+            <Image src={Logo} /> Log-in to your account
+          </Header>
 
-//   function loginUserCallback() {
-//     loginUser();
-//   }
+          <Form size='large' onSubmit={handleFormSubmit}>
+            <Segment stacked>
+              <Form.Input
+                fluid
+                icon='user'
+                iconPosition='left'
+                placeholder='Username'
+                name='username'
+                type='text'
+                onChange={handleChange}
+              />
+              <Form.Input
+                fluid
+                icon='lock'
+                iconPosition='left'
+                placeholder='Password'
+                name='password'
+                type='password'
+                onChange={handleChange}
+              />
 
-//   return (
-//     <div className='form-container'>
-//       <Form onSubmit={onSubmit} noValidate className={loading ? 'loading' : ''}>
-//         <h1>Login</h1>
-//         <Form.Input
-//           label='Username'
-//           placeholder='Username'
-//           name='username'
-//           type='text'
-//           value={values.username}
-//           error={errors.username ? true : false}
-//           onChange={onChange}
-//         />
-//         <Form.Input
-//           label='Password'
-//           placeholder='Password'
-//           name='password'
-//           type='password'
-//           value={values.password}
-//           error={errors.password ? true : false}
-//           onChange={onChange}
-//         />
-//         <Button type='submit' primary>
-//           Login
-//         </Button>
-//       </Form>
-//       {Object.keys(errors).length > 0 && (
-//         <div className='ui error message'>
-//           <ul className='list'>
-//             {Object.values(errors).map((value) => (
-//               <li key={value}>{value}</li>
-//             ))}
-//           </ul>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+              <Button color='teal' fluid size='large' id='loginbutton'>
+                Login
+              </Button>
+            </Segment>
+          </Form>
 
-// export default Login;
+          <Message>
+            New to us? <Link to='/register'>Sign Up</Link>
+          </Message>
+
+          {/* {error ? (
+          <Message className='error-message'>
+            Please make sure username and password valid.
+          </Message>
+        ) : null} */}
+        </Grid.Column>
+      </Grid>
+    </div>
+  );
+}
+
+export default Login;
