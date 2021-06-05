@@ -3,10 +3,13 @@ import React from 'react';
 // import gql from 'graphql-tag';
 import { Grid, GridRow, GridColumn } from 'semantic-ui-react';
 
-import PostCard from '../components/PostCard.js';
-import TestPostCardII from '../components/TestPostCard2.js';
-import TestPostCardIII from '../components/TestPostCard3.js';
-import TestPostCardIV from '../components/TestPostCard4';
+import { useQuery } from '@apollo/react-hooks';
+import { QUERY_POSTS } from '../utils/queries';
+
+import PostCard from '../components/PostCard';
+// import TestPostCardII from '../components/TestPostCard2.js';
+// import TestPostCardIII from '../components/TestPostCard3.js';
+// import TestPostCardIV from '../components/TestPostCard4';
 
 // function Home() {
 //   const {
@@ -57,9 +60,27 @@ import TestPostCardIV from '../components/TestPostCard4';
 //   }
 // `;
 
+
 function Home() {
+  const { loading, data } = useQuery(QUERY_POSTS);
+const posts = data?.posts || [];
   return (
-    <Grid columns={2}>
+    <main>
+      <div className="flex-row justify-space-between">
+        <div className="col-12 mb-3">
+          {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <PostCard posts={posts} title="Recent Post(s)..." />
+          )}
+        </div>
+      </div>
+    </main>
+  );
+}
+
+export default Home;
+{/* <Grid columns={2}>
       <GridRow>
         <h2>Recent Posts</h2>
       </GridRow>
@@ -67,13 +88,7 @@ function Home() {
         <h2>Loading posts... </h2>
         <GridColumn key='1' style={{ marginBottom: 20 }}>
           <PostCard />
-          <TestPostCardII />
-          <TestPostCardIII />
-          <TestPostCardIV />
+          
         </GridColumn>
       </GridRow>
-    </Grid>
-  );
-}
-
-export default Home;
+    </Grid> */}
