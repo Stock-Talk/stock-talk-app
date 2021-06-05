@@ -1,12 +1,9 @@
 import React from 'react';
-import './Main.css';
-
-import MainImage from '../images/Mainpage.png';
 import { Link } from 'react-router-dom';
 import { Image, Reveal } from 'semantic-ui-react';
+import './Main.css';
+import MainImage from '../images/Mainpage.png';
 import RevealImage from '../images/fixedabout.png';
-
-// const Main = () => <Image src={Aboutpng} as={Link} to='/about' />;
 
 const Main = () => (
   <div>
