@@ -7,12 +7,15 @@ import ApolloClient from 'apollo-boost';
 import 'semantic-ui-css/semantic.min.css';
 // import './App.css';
 
-import Nav from './components/MainNav';
 import Home from './pages/Home';
-import About from './pages/About';
+import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import './App.css'
+import About from './pages/About';
+import Main from './pages/Main';
+
+import Test from './pages/Test';
+import SearchCapture from './pages/Search';
 
 const client = new ApolloClient({
   uri: '/graphql'

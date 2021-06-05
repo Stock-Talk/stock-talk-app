@@ -3,28 +3,48 @@ import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui
 import { Link } from 'react-router-dom';
 import './Register.css'
 import Logo from '../Logo.png'
+import { useMutation } from '@apollo/react-hooks';
+import { ADD_USER } from '../utils/mutations';
+
+import Auth from '../utils/auth';
+
+
 function Register() {
   // Record what the user is typing in to the inputs
   // Record those inputs in state
   const [user, setUser] = useState({
+    username: "",
     email: "",
     password: "",
     confirmPassword: ""
   });
 
-  const register = (e) => {
-    e.preventDefault();
-    console.log('submitting form..', user);
-    // We want to make an HTTP request to the backend to register this user
-    // TODO: What route do we need to hit in order to register a user?
-    fetch('', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(user)
-    })
-  }
+  const [addUser, { error }] = useMutation(ADD_USER);
+
+
+  const handleChange = event => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      const { data } = await addUser({
+        variables: { ...formState }
+      });
+
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -32,41 +52,40 @@ function Register() {
         <Header as='h2' color='teal' textAlign='center' id='hdrtitle'>
           <Image src={Logo} /> Create your account
       </Header>
-        <Form onSubmit={register} size='large'>
+        <Form onSubmit={handleFormSubmit} size='large'>
           <Segment stacked>
             <Form.Input
               fluid
               icon='user'
               iconPosition='left'
               placeholder='E-mail address'
-              value={user.email}
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              name='email'
+              type='email'
+              id='email'
+              value={formState.email}
+              onChange={handleChange}
             />
             <Form.Input
               fluid
               icon='user'
               iconPosition='left'
               placeholder='Username'
-              value={user.username}
-              onChange={(e) => setUser({ ...user, username: e.target.value })}
+              name='username'
+              type='username'
+              id='username'
+              value={formState.username}
+              onChange={handleChange}
             />
             <Form.Input
               fluid
               icon='lock'
               iconPosition='left'
               placeholder='Password'
+              name='password'
               type='password'
-              value={user.password}
-              onChange={(e) => setUser({ ...user, password: e.target.value })}
-            />
-            <Form.Input
-              fluid
-              icon='lock'
-              iconPosition='left'
-              placeholder='Confirm Password'
-              type='password'
-              value={user.confirmPassword}
-              onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
+              id='password'
+              value={formState.password}
+              onChange={handleChange}
             />
 
             <Button color='teal' fluid size='large' id='registerbtn'>
@@ -74,6 +93,7 @@ function Register() {
           </Button>
           </Segment>
         </Form>
+        {error && <div>Sign up failed</div>}
         <Message>
           Already have an account? <Link to="/login">Login</Link>
         </Message>
@@ -84,3 +104,12 @@ function Register() {
 }
 
 export default Register;
+// {/* <Form.Input
+//               fluid
+//               icon='lock'
+//               iconPosition='left'
+//               placeholder='Confirm Password'
+//               type='password'
+//               value={user.confirmPassword}
+//               onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
+//             /> */}

@@ -61,24 +61,7 @@ function PostCard() {
             </Card>
           </Card.Group>
         ))}
-      <div>
-        {posts &&
-          posts.map(post => (
-            <div key={post._id} className="card mb-3">
-              <p className="card-header">
-                {post.username}
-              post on {post.createdAt}
-              </p>
-              <div className="card-body">
-                <p>{post.postText}</p>
-                <p className="mb-0">
-                  Comments: {post.commentCount} || Click to{' '}
-                  {post.commentCount ? 'see' : 'start'} the discussion!
-              </p>
-              </div>
-            </div>
-          ))}
-      </div>
+      
     </div>
   );
 }
