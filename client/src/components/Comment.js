@@ -1,8 +1,9 @@
 import React from 'react';
 import { Comment } from 'semantic-ui-react';
 
-function DisplayComments() {
-  const [open, setOpen] = React.useState(false);
+// this displays the a comment based the input sent to the db
+
+const DisplayComments = () => {
   return (
     <Comment>
       <Comment.Avatar src='/images/avatar/small/joe.jpg' />
@@ -18,6 +19,6 @@ function DisplayComments() {
       </Comment.Content>
     </Comment>
   );
-}
+};
 
 export default DisplayComments;

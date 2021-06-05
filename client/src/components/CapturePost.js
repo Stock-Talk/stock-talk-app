@@ -7,7 +7,7 @@ import { Form, TextArea, Modal, Button } from 'semantic-ui-react';
 
 // if username matches post username allow delete and update post
 
-function PostForm() {
+const PostForm = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -47,6 +47,6 @@ function PostForm() {
       </Modal.Actions>
     </Modal>
   );
-}
+};
 
 export default PostForm;

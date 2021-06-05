@@ -8,7 +8,7 @@ import Post from './SinglePost';
 //    if  profile page return all  post associated with my username
 //    else return all posts from all users
 
-function PostFeed() {
+const PostFeed = () => {
   return (
     <Feed align='center'>
       <Feed.Event>
@@ -19,6 +19,6 @@ function PostFeed() {
       </Feed.Event>
     </Feed>
   );
-}
+};
 
 export default PostFeed;

@@ -1,18 +1,16 @@
 import React from 'react';
-import { Card, Image, Button, Icon, Label } from 'semantic-ui-react';
+import { Card, Button, Icon } from 'semantic-ui-react';
 import './SinglePost.css';
 import AddComment from './CaptureComment';
-import Comments from './Comment';
 
-//// TODO:
+//// TODO: this card displays data pulled from backend
 //    add logic to pull date post is created
 //    add logic to pull username & post body
 //    add logic to pull user avatar (Later feature)
 
 //    for each post object in request to backend generate a card
 
-function PostCard() {
-  const [open, setOpen] = React.useState(false);
+const PostCard = () => {
   return (
     <Card.Group centered>
       <Card fluid>
@@ -22,7 +20,7 @@ function PostCard() {
           <Card.Description name='text'>POST TEXT BODY</Card.Description>
         </Card.Content>
         <Card.Content extra>
-          {/* Capture Comment */}
+          {/* Capture Comment Component*/}
           <AddComment />
 
           {/* RETURN THESE IF USERNAME MATCHES USERNAME PROPERTY */}
@@ -39,6 +37,6 @@ function PostCard() {
       </Card>
     </Card.Group>
   );
-}
+};
 
 export default PostCard;

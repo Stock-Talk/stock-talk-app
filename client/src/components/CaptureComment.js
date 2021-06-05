@@ -8,7 +8,7 @@ import PostComment from './Comment';
 
 // if username matches comment username allow delete and update comment
 
-function CommentForm() {
+const CommentForm = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -50,6 +50,6 @@ function CommentForm() {
       </Modal.Actions>
     </Modal>
   );
-}
+};
 
 export default CommentForm;

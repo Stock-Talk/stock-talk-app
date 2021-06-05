@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import Logo from '../images/Logo.png';
 import './Navigation.css';
 
 // if window is main page return mainNav
 // if window is login or register return Nav
 // if user is logged in return userNav
 
-function Navigation() {
+const Navigation = () => {
   const pathname = window.location.pathname;
   const path = pathname === '/' ? 'home' : pathname.substring(1);
   const [activeItem, setActiveItem] = useState(path);
@@ -132,6 +131,6 @@ function Navigation() {
       </div>
     );
   }
-}
+};
 
 export default Navigation;
