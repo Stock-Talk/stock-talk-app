@@ -1,8 +1,11 @@
 import React from 'react';
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
+
 
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -13,8 +16,13 @@ import Main from './pages/Main';
 import Search from './pages/Search';
 import Navigation from './components/Navigation';
 
+const client = new ApolloClient({
+  uri: 'http://localhost:3001/graphql'
+});
+
 function App() {
   return (
+    <ApolloProvider client={client}>
     <Router>
       <Container>
         <Navigation />
@@ -27,6 +35,7 @@ function App() {
         <Route exact path='/about' component={About} />
       </Container>
     </Router>
+    </ApolloProvider>
   );
 }
 
