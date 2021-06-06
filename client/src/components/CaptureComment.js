@@ -17,7 +17,7 @@ const CommentForm = () => {
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <Button className='comment-btn' size='medium'>
+        <Button className='comment-btn' name='add' size='medium'>
           Comment
         </Button>
       }
