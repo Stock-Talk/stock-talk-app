@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
@@ -16,18 +15,17 @@ import Search from './pages/Search';
 import Navigation from './components/Navigation';
 
 const client = new ApolloClient({
-  request: operation => {
+  request: (operation) => {
     const token = localStorage.getItem('id_token');
 
     operation.setContext({
       headers: {
-        authorization: token ? `Bearer ${token}` : ''
-      }
+        authorization: token ? `Bearer ${token}` : '',
+      },
     });
   },
-  uri: 'http://localhost:3001/graphql'
+  uri: 'http://localhost:3001/graphql',
 });
-
 
 function App() {
   return (
