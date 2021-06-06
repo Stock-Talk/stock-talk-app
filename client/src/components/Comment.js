@@ -3,8 +3,6 @@ import { Comment } from 'semantic-ui-react';
 // this displays the a comment based the input sent to the db
 
 const DisplayComments = ({ key, username, createdAt, postText, comments }) => {
-
-
   return (
     <div>
       {comments &&

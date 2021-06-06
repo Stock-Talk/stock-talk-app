@@ -32,6 +32,7 @@ const PostCard = () => {
             <Card.Content extra>
               {/* Capture Comment Component*/}
               <AddComment  
+                postedId={post._id}
                 key={post._id}
                 username={post.username}
                 createdAt = {post.createdAt}
