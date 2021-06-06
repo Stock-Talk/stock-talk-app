@@ -1,20 +1,20 @@
 import React from 'react';
-import './Main.css';
-import MainNav from '../components/MainNav';
-import Mainpage from '../images/';
 import { Link } from 'react-router-dom';
-import { Image } from 'semantic-ui-react';
+import { Image, Reveal } from 'semantic-ui-react';
+import './Main.css';
+import MainImage from '../images/Mainpage.png';
+import RevealImage from '../images/fixedabout.png';
 
 const Main = () => (
   <div>
-    <MainNav />
-    <Image
-      src={Mainpage}
-      as={Link}
-      to='./about'
-      size='extra-large'
-      atl='about navigation'
-    />
+    <Reveal animated='small fade'>
+      <Reveal.Content visible>
+        <Image src={MainImage} circular as={Link} to='/about' />
+      </Reveal.Content>
+      <Reveal.Content hidden>
+        <Image src={RevealImage} circular as={Link} to='/about' />
+      </Reveal.Content>
+    </Reveal>
   </div>
 );
 

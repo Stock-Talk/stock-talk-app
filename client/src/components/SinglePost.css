@@ -1,0 +1,46 @@
+/* still need to finish styling cards */
+.card {
+  background: rgba(119, 117, 117, 0.797) !important;
+}
+
+/* .event {
+  background: rgba(70, 70, 70, 0.544) !important;
+} */
+.extra {
+  padding: 0.5em !important;
+}
+.post-btn {
+  background-color: rgb(247, 77, 15) !important;
+  color: white !important;
+}
+
+.delete-btn {
+  background-color: rgb(247, 26, 15) !important;
+  color: white !important;
+}
+.post-btn:hover,
+.delete-btn:hover {
+  background-color: rgb(246, 109, 102) !important;
+}
+
+.comments-btn {
+  color: white !important;
+}
+.close-btn {
+  background-color: rgb(53, 50, 50) !important;
+  color: white !important;
+}
+
+.comment-btn,
+.submit-btn,
+.edit-btn,
+.reply-btn {
+  background-color: rgb(0, 176, 203) !important;
+  color: white !important;
+}
+.comment-btn:hover,
+.submit-btn:hover,
+.edit-btn:hover,
+.reply-btn:hover {
+  background-color: rgb(29, 164, 184) !important;
+}

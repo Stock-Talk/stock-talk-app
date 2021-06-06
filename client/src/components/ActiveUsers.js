@@ -3,9 +3,7 @@ import { List, Image, Grid } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import PostFeed from './PostFeed';
 
-//// DONT WORRY ABOUT THIS FOR NOW THIS IS FUTURE FEATURE DONT NEED FOR PRESENTATION
-
-function RecentActivity() {
+const RecentActivity = () => {
   //// TODO: logic to provide username and time of most recent activity
   //// if they person has not posted set deafult to person `has not posted recently`
 
@@ -71,6 +69,6 @@ function RecentActivity() {
       </List>
     </Grid>
   );
-}
+};
 
 export default RecentActivity;

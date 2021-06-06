@@ -1,11 +1,11 @@
 import React from 'react';
+import './Main.css';
+import { Image } from 'semantic-ui-react';
+import AboutImage from '../images/About.png';
 
-function About() {
-  return (
-    <div>
-      <h1>About</h1>
-    </div>
-  );
-}
-
-export default About;
+const AboutPage = () => (
+  <div>
+    <Image src={AboutImage} alt='About the application'></Image>
+  </div>
+);
+export default AboutPage;
