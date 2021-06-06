@@ -8,17 +8,17 @@ import PostComment from './Comment';
 
 // if username matches comment username allow delete and update comment
 
-const CommentForm = () => {
+const CommentForm = ({ key, username, createdAt, postText, comments }) => {
+  const {currentComment} = comments;
   const [open, setOpen] = React.useState(false);
-
   return (
     <Modal
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <Button className='comment-btn' name='add' size='medium'>
-          Comment
+        <Button className='comment-btn' size='medium'>
+          View/Add Comment(s)
         </Button>
       }
     >
@@ -29,7 +29,13 @@ const CommentForm = () => {
             Comments
           </Header>
           {/* Display comments here */}
-          <PostComment />
+          <PostComment key={key}
+                username={username}
+                createdAt = {createdAt}
+                postText = {postText}
+                comments = {comments}
+          />
+                
           {/* Capture Comment here */}
           <Form reply>
             <Form.TextArea />
