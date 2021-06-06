@@ -2,9 +2,17 @@ import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 import Feed from '../components/AllPostFeed';
 import CreatePost from '../components/CapturePost';
-import './Home.css';
+
+import { useQuery } from '@apollo/react-hooks';
+import { QUERY_POSTS } from '../utils/queries';
+
+import SinglePost from '../components/SinglePost';
+
+import './Home.css'
 
 const Home = () => {
+  // const { loading, data } = useQuery(QUERY_POSTS);
+  // const posts = data?.posts || [];
   return (
     <div>
       <Grid celled='internally' stackable>
@@ -21,7 +29,7 @@ const Home = () => {
             {/* Button to create post in PostForm component */}
             <CreatePost />
 
-            {/* Feed component */}
+            <SinglePost />
             <Feed />
           </Grid.Column>
         </Grid.Row>

@@ -3,6 +3,9 @@ import { Card, Button, Icon } from 'semantic-ui-react';
 import './SinglePost.css';
 import AddComment from './CaptureComment';
 
+import { useQuery } from '@apollo/react-hooks';
+import { QUERY_POSTS } from '../utils/queries';
+
 //// TODO: this card displays data pulled from backend
 //    add logic to pull date post is created
 //    add logic to pull username & post body
@@ -10,7 +13,15 @@ import AddComment from './CaptureComment';
 
 //    for each post object in request to backend generate a card
 
-const PostCard = () => {
+function PostCard() {
+  const { loading, data } = useQuery(QUERY_POSTS);
+  const posts = data?.posts || [];
+  console.log(posts);
+  
+    if (!posts.length) {
+      return <h3>No Posts Yet</h3>;
+    }
+  
   return (
     <Card.Group centered>
       <Card fluid>
