@@ -12,40 +12,35 @@ import { Link } from 'react-router-dom';
 import './Register.css';
 import Logo from '../images/Logo.png';
 
-////////*** NEED TO SET UP FILES AND INSTALL DEPENDENCIES TO IMPORT ********
-// import { useMutation } from '@apollo/react-hooks';
-// import Auth from "../utils/auth";
-// import { ADD_USER } from "../utils/mutations";
+import { useMutation } from '@apollo/react-hooks';
+import Auth from "../utils/auth";
+import { ADD_USER } from "../utils/mutations";
 
-function Register(props) {
-  const [user, setUser] = useState({
-    email: '',
-    username: '',
-    password: '',
-    confirmPassword: '',
-  });
-  // const [addUser] = useMutation(ADD_USER);
-
-  // const handleFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const mutationResponse = await addUser({
-  //     variables: {
-  //       username: user.username,
-  //       email: user.email,
-  //       password: user.password,
-  //       confirmPassword: user.confirmPassword,
-  //     },
-  //   });
-  //   const token = mutationResponse.data.addUser.token;
-  //   Auth.login(token);
-  // };
+const Register = () => {
+  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUser({
-      ...user,
+    setFormState({
+      ...formState,
       [name]: value,
     });
+  };
+
+
+  const handleFormSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      // execute addUser mutation and pass in variable data from form
+      const { data } = await addUser({
+        variables: { ...formState }
+      });
+      Auth.login(data.addUser.token);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -59,8 +54,7 @@ function Register(props) {
           <Header as='h2' color='teal' textAlign='center' id='hdrtitle'>
             <Image src={Logo} /> Create your account
           </Header>
-          {/* unquote {register} */}
-          <Form onSubmit='{register}' size='large'>
+          <Form onSubmit={handleFormSubmit} size='large'>
             <Segment stacked>
               <Form.Input
                 fluid
@@ -68,7 +62,7 @@ function Register(props) {
                 iconPosition='left'
                 name='username'
                 placeholder='Username'
-                value={user.username}
+                value={formState.username}
                 onChange={handleChange}
               />
               <Form.Input
@@ -77,7 +71,7 @@ function Register(props) {
                 iconPosition='left'
                 name='email'
                 placeholder='E-mail address'
-                value={user.email}
+                value={formState.email}
                 onChange={handleChange}
               />
               <Form.Input
@@ -87,17 +81,7 @@ function Register(props) {
                 name='password'
                 placeholder='Password'
                 type='password'
-                value={user.password}
-                onChange={handleChange}
-              />
-              <Form.Input
-                fluid
-                icon='lock'
-                iconPosition='left'
-                name='confirmpassword'
-                placeholder='Confirm Password'
-                type='password'
-                value={user.confirmPassword}
+                value={formState.password}
                 onChange={handleChange}
               />
 
@@ -106,6 +90,7 @@ function Register(props) {
               </Button>
             </Segment>
           </Form>
+          {error && <div>Sign up failed</div>}
           <Message>
             Already have an account? <Link to='/login'>Login</Link>
           </Message>

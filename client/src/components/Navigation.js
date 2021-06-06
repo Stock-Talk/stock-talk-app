@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import './Navigation.css';
+import Auth from '../utils/auth';
 
 // if window is main page return mainNav
 // if window is login or register return Nav

@@ -13,25 +13,13 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 import Logo from '../images/Logo.png';
 
-////////*** NEED TO SET UP FILES AND INSTALL DEPENDENCIES TO IMPORT ********
-// import { useMutation } from '@apollo/react-hooks';
-// import { LOGIN } from "../utils/mutations"
-// import Auth from "../utils/auth";
+import { useMutation } from '@apollo/react-hooks';
+import { LOGIN_USER } from "../utils/mutations"
+import Auth from "../utils/auth";
 
-function Login() {
+const Login = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
-  //   const [login, { error }] = useMutation(LOGIN);
-
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    //     try {
-    //       const mutationResponse = await login({ variables: { username: formState.username, password: formState.password } })
-    //       const token = mutationResponse.data.login.token;
-    //       Auth.login(token);
-    //     } catch (e) {
-    //       console.log(e)
-    //     }
-  };
+  const [login, { error }] = useMutation(LOGIN_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,6 +27,20 @@ function Login() {
       ...formState,
       [name]: value,
     });
+  };
+
+  const handleFormSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      const { data } = await login({
+        variables: { ...formState }
+      });
+    
+      Auth.login(data.login.token)
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -59,9 +61,10 @@ function Login() {
                 fluid
                 icon='user'
                 iconPosition='left'
-                placeholder='Username'
-                name='username'
-                type='text'
+                placeholder='Email'
+                name='email'
+                type='email'
+                value={formState.email}
                 onChange={handleChange}
               />
               <Form.Input
@@ -71,6 +74,7 @@ function Login() {
                 placeholder='Password'
                 name='password'
                 type='password'
+                value={formState.password}
                 onChange={handleChange}
               />
 
@@ -83,12 +87,7 @@ function Login() {
           <Message>
             New to us? <Link to='/register'>Sign Up</Link>
           </Message>
-
-          {/* {error ? (
-          <Message className='error-message'>
-            Please make sure username and password valid.
-          </Message>
-        ) : null} */}
+          {error && <div>Please enter valid username and password combination.</div>}
         </Grid.Column>
       </Grid>
     </div>
