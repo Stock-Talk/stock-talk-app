@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Header, Modal, Button, Icon, Comment } from 'semantic-ui-react';
+import { Form, Header, Modal, Button, Comment } from 'semantic-ui-react';
 import PostComment from './Comment';
 
 // TODO

@@ -22,7 +22,7 @@ const PostForm = () => {
       }
     >
       <Modal.Header>Create a Post</Modal.Header>
-      <Modal.Content Form>
+      <Modal.Content>
         <Form onSubmit='undefined'>
           <Form.Group>
             {/* why can't you type in text area */}
@@ -37,11 +37,7 @@ const PostForm = () => {
         </Form>
       </Modal.Content>
       <Modal.Actions>
-        <Button
-          className='close-btn'
-          color='gray'
-          onClick={() => setOpen(false)}
-        >
+        <Button className='close-btn' onClick={() => setOpen(false)}>
           Close
         </Button>
       </Modal.Actions>

@@ -31,7 +31,7 @@ const PostCard = () => {
           </Button>
           {/* DELETE Post Button */}
           <Button className='delete-btn' size='medium'>
-            <Icon className='trash' color='white' />
+            <Icon className='trash' />
           </Button>
         </Card.Content>
       </Card>
