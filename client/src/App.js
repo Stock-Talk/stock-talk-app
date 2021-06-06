@@ -5,8 +5,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
@@ -15,6 +13,7 @@ import About from './pages/About';
 import Main from './pages/Main';
 import Search from './pages/Search';
 import Navigation from './components/Navigation';
+import NoMatch from './pages/NoMatch';
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -32,22 +31,22 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
-    <Router>
-      <Container>
-        <Navigation />
-        <Switch>
-        <Route exact path='/' component={Main} />
-        <Route exact path='/search' component={Search} />
-        <Route exact path='/home' component={Home} />
-        <Route exact path='/profile' component={Profile} />
-        <Route exact path='/login' component={Login} />
-        <Route exact path='/register' component={Register} />
-        <Route exact path='/about' component={About} />
+      <Router>
+        <Container>
+          <Navigation />
+          <Switch>
+            <Route exact path='/' component={Main} />
+            <Route exact path='/search' component={Search} />
+            <Route exact path='/home' component={Home} />
+            <Route exact path='/profile' component={Profile} />
+            <Route exact path='/login' component={Login} />
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/about' component={About} />
 
-        <Route component={NoMatch} />
-        </Switch>
-      </Container>
-    </Router>
+            <Route component={NoMatch} />
+          </Switch>
+        </Container>
+      </Router>
     </ApolloProvider>
   );
 }
