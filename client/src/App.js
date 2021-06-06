@@ -34,6 +34,15 @@ const client = new ApolloClient({
 
 const client = new ApolloClient({ link: httpLink, cache: new InMemoryCache() }); */
 
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import About from './pages/About';
+import Main from './pages/Main';
+import Search from './pages/Search';
+import Navigation from './components/Navigation';
+
 function App() {
   return (
     <ApolloProvider client={client}>

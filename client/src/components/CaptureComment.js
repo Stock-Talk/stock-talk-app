@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Header, Modal, Button, Comment } from 'semantic-ui-react';
+import { Form, Header, Modal, Button, Icon, Comment } from 'semantic-ui-react';
 import PostComment from './Comment';
 
 // TODO
@@ -17,7 +17,7 @@ const CommentForm = () => {
       onOpen={() => setOpen(true)}
       open={open}
       trigger={
-        <Button className='comment-btn' size='medium'>
+        <Button className='comment-btn' name='add' size='medium'>
           Comment
         </Button>
       }
