@@ -9,7 +9,7 @@ import PostComment from './Comment';
 // if username matches comment username allow delete and update comment
 
 const CommentForm = ({ key, username, createdAt, postText, comments }) => {
-  const {currentComment} = comments;
+  const { currentComment } = comments;
   const [open, setOpen] = React.useState(false);
   return (
     <Modal
@@ -29,20 +29,21 @@ const CommentForm = ({ key, username, createdAt, postText, comments }) => {
             Comments
           </Header>
           {/* Display comments here */}
-          <PostComment key={key}
-                username={username}
-                createdAt = {createdAt}
-                postText = {postText}
-                comments = {comments}
+          <PostComment
+            key={key}
+            username={username}
+            createdAt={createdAt}
+            postText={postText}
+            comments={comments}
           />
-                
+
           {/* Capture Comment here */}
           <Form reply>
             <Form.TextArea />
             <Button
               className='reply-btn'
               onClick='submit function'
-              content='Add Reply'
+              content='Add Comment'
               labelPosition='left'
               icon='edit'
             />
