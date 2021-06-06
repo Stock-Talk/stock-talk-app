@@ -6,12 +6,7 @@ import AddComment from './CaptureComment';
 
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_POSTS } from '../utils/queries';
-//// TODO: this card displays data pulled from backend
-//    add logic to pull date post is created
-//    add logic to pull username & post body
-//    add logic to pull user avatar (Later feature)
 
-//    for each post object in request to backend generate a card
 
 const PostCard = () => {
   const { loading, data } = useQuery(QUERY_POSTS);

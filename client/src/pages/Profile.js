@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect, useParams } from 'react-router-dom';
 import { Grid, Header } from 'semantic-ui-react';
 import Feed from '../components/AllPostFeed';
 import CreatePost from '../components/CapturePost';

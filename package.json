@@ -16,10 +16,7 @@
     "graphql": "^15.5.0",
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
-<<<<<<< HEAD
-=======
     "jwt-decode": "^3.1.2",
->>>>>>> 024ad153ffb43073658345d543f31b0e14ae2bb3
     "mongoose": "^5.12.11"
   },
   "devDependencies": {
