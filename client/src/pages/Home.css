@@ -1,0 +1,9 @@
+/* Home Content */
+.page-title {
+  color: whitesmoke !important;
+}
+
+.ui.center.aligned.header,
+.ui.centered.header {
+  box-shadow: none !important;
+}

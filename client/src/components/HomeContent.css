@@ -1,0 +1,38 @@
+/* Home Content */
+/* * {
+  box-shadow: none !important;
+} */
+.ui {
+  background-color: transparent !important;
+}
+
+.section-header,
+.section-content,
+.friend,
+.friend-list,
+.recent-activity,
+.home-feed {
+  margin-left: 0 !important;
+}
+
+.header {
+  color: whitesmoke !important;
+  /* background-color: red !important; */
+}
+
+.section-content,
+.home-feed {
+  background-color: transparent !important;
+  border: 1px solid whitesmoke !important;
+}
+
+.no-section-header,
+.no-section-content {
+  margin: 0 10em !important;
+}
+
+.section-header,
+.no-section-header {
+  border: 1px solid whitesmoke !important;
+  background-color: black !important;
+}
