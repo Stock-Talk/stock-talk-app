@@ -3,7 +3,6 @@ import { Feed } from 'semantic-ui-react';
 import Post from './SinglePost';
 
 //// TODO:
-//    for every post object fetch from back end render post card
 
 //    if  profile page return all  post associated with my username
 //    else return all posts from all users

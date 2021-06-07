@@ -8,16 +8,25 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './Register.css';
 import Logo from '../images/Logo.png';
 
 import { useMutation } from '@apollo/react-hooks';
-import Auth from "../utils/auth";
-import { ADD_USER } from "../utils/mutations";
+import Auth from '../utils/auth';
+import { ADD_USER } from '../utils/mutations';
 
 const Register = () => {
-  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
+  // code to send user to home page after registering
+  let history = useHistory();
+  function handleClick() {
+    history.push('/home');
+  }
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
@@ -28,14 +37,13 @@ const Register = () => {
     });
   };
 
-
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
       // execute addUser mutation and pass in variable data from form
       const { data } = await addUser({
-        variables: { ...formState }
+        variables: { ...formState },
       });
       Auth.login(data.addUser.token);
     } catch (e) {
@@ -85,7 +93,13 @@ const Register = () => {
                 onChange={handleChange}
               />
 
-              <Button color='teal' fluid size='large' id='registerbtn'>
+              <Button
+                color='teal'
+                fluid
+                size='large'
+                id='registerbtn'
+                onClick={handleClick}
+              >
                 Register
               </Button>
             </Segment>
@@ -98,6 +112,6 @@ const Register = () => {
       </Grid>
     </div>
   );
-}
+};
 
 export default Register;

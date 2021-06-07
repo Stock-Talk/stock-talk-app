@@ -10,7 +10,7 @@ function Profile() {
         My Activity
       </Header>
 
-      <Grid celled='internally'>
+      <Grid celled='internally' stackable>
         <Grid.Row className='section-header'>
           {/* <Grid.Column
             floated='left'

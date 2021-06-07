@@ -8,16 +8,19 @@ import {
   Message,
   Segment,
 } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-
+import { Link, useHistory } from 'react-router-dom';
 import './Login.css';
 import Logo from '../images/Logo.png';
-
 import { useMutation } from '@apollo/react-hooks';
-import { LOGIN_USER } from "../utils/mutations"
-import Auth from "../utils/auth";
+import { LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
 
 const Login = (props) => {
+  // code to send user to home page after submiting login form
+  let history = useHistory();
+  function handleClick() {
+    history.push('/home');
+  }
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
 
@@ -29,15 +32,15 @@ const Login = (props) => {
     });
   };
 
-  const handleFormSubmit = async event => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const { data } = await login({
-        variables: { ...formState }
+        variables: { ...formState },
       });
-    
-      Auth.login(data.login.token)
+
+      Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
@@ -78,7 +81,13 @@ const Login = (props) => {
                 onChange={handleChange}
               />
 
-              <Button color='teal' fluid size='large' id='loginbutton'>
+              <Button
+                color='teal'
+                fluid
+                size='large'
+                id='loginbutton'
+                onClick={handleClick}
+              >
                 Login
               </Button>
             </Segment>
@@ -87,11 +96,13 @@ const Login = (props) => {
           <Message>
             New to us? <Link to='/register'>Sign Up</Link>
           </Message>
-          {error && <div>Please enter valid username and password combination.</div>}
+          {error && (
+            <div>Please enter valid username and password combination.</div>
+          )}
         </Grid.Column>
       </Grid>
     </div>
   );
-}
+};
 
 export default Login;
