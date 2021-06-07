@@ -34,7 +34,7 @@ https://limitless-refuge-10058.herokuapp.com/
 - Github: https://github.com/n8dogg59
 - Email: n8dogg59@hotmail.com
 
-**Idzel Jaimes **
+**Idzel Jaimes**
 - Github: https://github.com/irjaimes
 - Email: irjaimes@outlook.com
 
@@ -42,11 +42,11 @@ https://limitless-refuge-10058.herokuapp.com/
 - Github: https://github.com/cmphillips23
 - Email: cmphillips23@gmail.com
 
-**Jose Ramirez **
+**Jose Ramirez**
 - Github: https://github.com/pepermz
 - Email: jose.ram.18@gmail.com
 
-**Noah Sherman  **
+**Noah Sherman**
 - Github Username: nsherman113
 - Email: noahsherman113@gmail.com
 
