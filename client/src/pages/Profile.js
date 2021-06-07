@@ -3,8 +3,32 @@ import { Redirect, useParams } from 'react-router-dom';
 import { Grid, Header } from 'semantic-ui-react';
 import Feed from '../components/AllPostFeed';
 import CreatePost from '../components/CapturePost';
+import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { useQuery, useMutation } from '@apollo/react-hooks';
+import Auth from '../utils/auth';
 
 function Profile() {
+  const tokenId = localStorage.getItem('id_token');
+  console.log(tokenId);
+  const { me } = cache.readQuery({ query: QUERY_ME });
+  // const { loading, data } = useQuery(QUERY_ME);
+  // console.log(data);
+  // const posts = data?.posts || [];
+  // console.log(posts);
+  // const { loading, data } = useQuery(QUERY_ME, {
+  //   headers: { token: tokenId }
+  // });
+  // console.log({data});
+  // const { loading, data } = useQuery(QUERY_ME);
+  // console.log(data + " from line 12")
+  // const posts = data?.posts || [];
+  // console.log(posts + " from Profile line 13");
+  // console.log(posts[0] + " line 20 of SinglePost")
+  const PostList = ({ posts }) => {
+    if (!posts.length) {
+      return <h3>No Posts Yet</h3>;
+    }
+  }
   return (
     <div>
       <Header className='page-title' textAlign='center'>
