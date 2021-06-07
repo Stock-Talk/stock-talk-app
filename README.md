@@ -4,7 +4,6 @@
   - [Image](#image)
   - [Installation](#installation)
   - [Usage](#usage)
-  - [Demonstration](#demo)
   - [Contributing](#contributing)
   
   
