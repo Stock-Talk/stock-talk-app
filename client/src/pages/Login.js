@@ -16,11 +16,6 @@ import { LOGIN_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Login = (props) => {
-  // code to send user to home page after submiting login form
-  let history = useHistory();
-  function handleClick() {
-    history.push('/home');
-  }
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
 
@@ -34,17 +29,21 @@ const Login = (props) => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
     try {
       const { data } = await login({
         variables: { ...formState },
       });
-
       Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
     }
   };
+
+  // code to send user to home page after submiting login form
+  let history = useHistory();
+  function handleClick() {
+    history.push('/home');
+  }
 
   return (
     <div>

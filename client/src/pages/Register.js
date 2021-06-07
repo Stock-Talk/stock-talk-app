@@ -17,11 +17,6 @@ import Auth from '../utils/auth';
 import { ADD_USER } from '../utils/mutations';
 
 const Register = () => {
-  // code to send user to home page after registering
-  let history = useHistory();
-  function handleClick() {
-    history.push('/home');
-  }
   const [formState, setFormState] = useState({
     username: '',
     email: '',
@@ -50,6 +45,12 @@ const Register = () => {
       console.error(e);
     }
   };
+
+  // code to send user to home page after submiting register form
+  let history = useHistory();
+  function handleClick() {
+    history.push('/home');
+  }
 
   return (
     <div>
