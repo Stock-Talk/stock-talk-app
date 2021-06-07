@@ -39,11 +39,10 @@ const Login = (props) => {
     }
   };
 
-  // code to send user to home page after submiting login form
-  let history = useHistory();
-  function handleClick() {
-    history.push('/home');
-  }
+  // let history = useHistory();
+  // // function handleClick() {
+  // //   history.push('/home');
+  // // }
 
   return (
     <div>
@@ -85,7 +84,7 @@ const Login = (props) => {
                 fluid
                 size='large'
                 id='loginbutton'
-                onClick={handleClick}
+                // onClick={handleFormSubmit}
               >
                 Login
               </Button>

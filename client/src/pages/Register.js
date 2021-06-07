@@ -47,10 +47,10 @@ const Register = () => {
   };
 
   // code to send user to home page after submiting register form
-  let history = useHistory();
-  function handleClick() {
-    history.push('/home');
-  }
+  // let history = useHistory();
+  // function handleClick() {
+  //   history.push('/home');
+  // }
 
   return (
     <div>
@@ -99,7 +99,7 @@ const Register = () => {
                 fluid
                 size='large'
                 id='registerbtn'
-                onClick={handleClick}
+                // onClick={handleClick}
               >
                 Register
               </Button>
