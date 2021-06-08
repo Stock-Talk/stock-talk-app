@@ -46,7 +46,7 @@ https://limitless-refuge-10058.herokuapp.com/
 - Email: jose.ram.18@gmail.com
 
 **Noah Sherman**
-- Github: nsherman113
+- Github: https://github.com/nsherman113
 - Email: noahsherman113@gmail.com
 
 ### Questions 
