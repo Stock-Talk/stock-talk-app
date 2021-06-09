@@ -52,5 +52,5 @@ https://limitless-refuge-10058.herokuapp.com/
 ### Questions 
  Please reach out to anyone listed above should you have any questions.  
 
- Github Link: https://github.com/Stock-Talk/stock-talk-app
+ 
   
